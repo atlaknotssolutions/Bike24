@@ -693,11 +693,11 @@ const HomeScreen = ({ navigation }) => {
     {
       id: "2",
       type: "bike",
-      title: "2022 Royal Enfield Classic 350",
+      title: "Bajaj Pulsar RS 200",
       price: 185000,
       timeLeft: 4320,
       image:
-        "https://imgd.aeplcdn.com/370x208/n/cw/ec/145655/x440-right-side-view-16.png?isig=0&q=80", // Better RE image
+        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/rs-200-right-side-view-2.png?isig=0&q=80&wm=3",
       location: "Indore",
       rto: "MP09AB1234",
       fuel: "Petrol",
@@ -719,11 +719,11 @@ const HomeScreen = ({ navigation }) => {
     {
       id: "4",
       type: "bike",
-      title: "Bajaj Pulsar RS 200",
+      title: "2023 Bajaj Pulsar NS 200",
       price: 145000,
       timeLeft: 3300,
       image:
-        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/rs-200-right-side-view-2.png?isig=0&q=80&wm=3", // Pulsar image
+        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/pulsar-ns-200-right-side-view.png?isig=0&q=80",
       location: "Indore",
       rto: "MP09FG9012",
       fuel: "Petrol",
@@ -752,7 +752,7 @@ const HomeScreen = ({ navigation }) => {
       price: 95000,
       timeLeft: 2160,
       image:
-        "https://cdn.pixabay.com/photo/2015/08/27/09/06/bike-909690_1280.jpg",
+        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/apache-rtr-160-right-side-view.png?isig=0&q=80",
       location: "Indore",
       rto: "MP09MN1122",
       fuel: "Petrol",
@@ -795,7 +795,7 @@ const HomeScreen = ({ navigation }) => {
       price: 65000,
       timeLeft: 0,
       image:
-        "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/splendor-plus-right-side-view.png?isig=0&q=80",
       location: "Indore",
       rto: "MP09ST7788",
       fuel: "Petrol",
@@ -809,7 +809,7 @@ const HomeScreen = ({ navigation }) => {
       price: 112000,
       timeLeft: 0,
       image:
-        "https://images.unsplash.com/photo-1609630875171-b1321377ee65?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW90b3JiaWtlfGVufDB8fDB8fHww", // Hornet bike image
+        "https://imgd.aeplcdn.com/1056x594/n/cw/ec/195431/hornet-160r-right-side-view.png?isig=0&q=80",
       location: "Indore",
       rto: "MP09HI3456",
       fuel: "Petrol",

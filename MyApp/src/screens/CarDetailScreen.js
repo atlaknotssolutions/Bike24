@@ -1766,7 +1766,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useWallet } from './Cartcontext/WalletContext';   // ← Apna correct path daalo
+import { useWallet } from './Cartcontext/WalletContext.js';   // ← Apna correct path daalo
 
 const { width } = Dimensions.get('window');
 
@@ -1795,10 +1795,10 @@ const CarDetailScreen = ({ route, navigation }) => {
   // Carousel Images
   const carImages = [
     car?.image || 'https://picsum.photos/id/1015/800/500',
-    'https://picsum.photos/id/106/800/500',
-    'https://picsum.photos/id/1074/800/500',
-    'https://picsum.photos/id/201/800/500',
-    'https://picsum.photos/id/133/800/500',
+    'https://imgd.aeplcdn.com/1056x594/n/cw/ec/209893/r15-rear-view.jpeg?isig=0&q=80&wm=3',
+    'https://imgd.aeplcdn.com/1056x594/n/cw/ec/209893/r15-left-front-three-quarter.jpeg?isig=0&q=80&wm=3',
+    'https://imgd.aeplcdn.com/1056x594/n/cw/ec/209893/r15-left-front-three-quarter.jpeg?isig=0&q=80&wm=3',
+    'https://imgd.aeplcdn.com/1056x594/n/cw/ec/209893/r15-right-rear-three-quarter.jpeg?isig=0&q=80&wm=3',
   ];
 
   const availableBalance = getAvailableBalance();
