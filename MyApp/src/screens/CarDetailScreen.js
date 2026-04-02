@@ -1,459 +1,1327 @@
-// // import React, { useState, useEffect } from 'react';
-// // import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+// // // // import React, { useState, useEffect } from 'react';
+// // // // import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+// // // // import { Ionicons } from '@expo/vector-icons';
+// // // // import dayjs from 'dayjs';
+
+// // // // const CarDetailScreen = ({ route, navigation }) => {
+// // // //   const { car } = route.params;
+// // // //   const [bidAmount, setBidAmount] = useState('');
+// // // //   const [timeLeft, setTimeLeft] = useState(car.timeLeft || '2h 30m');
+
+// // // //   // Fake countdown
+// // // //   useEffect(() => {
+// // // //     const interval = setInterval(() => {
+// // // //       setTimeLeft(prev => {
+// // // //         if (prev.includes('m')) {
+// // // //           let min = parseInt(prev);
+// // // //           if (min > 1) return `${min-1}m left`;
+// // // //           return 'Auction ending soon';
+// // // //         }
+// // // //         return prev;
+// // // //       });
+// // // //     }, 60000); // every minute
+
+// // // //     return () => clearInterval(interval);
+// // // //   }, []);
+
+// // // //   const placeBid = () => {
+// // // //     if (!bidAmount || parseFloat(bidAmount) < 100000) {
+// // // //       Alert.alert('Invalid Bid', 'Please enter a valid bid amount');
+// // // //       return;
+// // // //     }
+// // // //     Alert.alert('Bid Placed!', `Your bid of ₹${bidAmount} has been placed successfully.`);
+// // // //     setBidAmount('');
+// // // //   };
+
+// // // //   return (
+// // // //     <ScrollView style={styles.container}>
+// // // //       <Image source={{ uri: car.image }} style={styles.carImage} />
+
+// // // //       <View style={styles.infoContainer}>
+// // // //         <Text style={styles.carTitle}>{car.title}</Text>
+// // // //         <Text style={styles.location}>📍 {car.location} • 2021 Model</Text>
+
+// // // //         <View style={styles.bidInfo}>
+// // // //           <View>
+// // // //             <Text style={styles.label}>Current Highest Bid</Text>
+// // // //             <Text style={styles.currentBid}>{car.currentBid}</Text>
+// // // //           </View>
+// // // //           <View>
+// // // //             <Text style={styles.label}>Time Left</Text>
+// // // //             <Text style={styles.time}>{timeLeft}</Text>
+// // // //           </View>
+// // // //         </View>
+
+// // // //         <View style={styles.bidInputContainer}>
+// // // //           <Text style={styles.bidLabel}>Place your bid (₹)</Text>
+// // // //           <View style={styles.inputRow}>
+// // // //             <TextInput
+// // // //               style={styles.bidInput}
+// // // //               placeholder="Enter bid amount"
+// // // //               keyboardType="numeric"
+// // // //               value={bidAmount}
+// // // //               onChangeText={setBidAmount}
+// // // //             />
+// // // //             <TouchableOpacity style={styles.bidButton} onPress={placeBid}>
+// // // //               <Text style={styles.bidButtonText}>Place Bid</Text>
+// // // //             </TouchableOpacity>
+// // // //           </View>
+// // // //           <Text style={styles.note}>Minimum increment: ₹10,000</Text>
+// // // //         </View>
+
+// // // //         <TouchableOpacity style={styles.buyNowButton}>
+// // // //           <Text style={styles.buyNowText}>Buy Now at ₹11.50 Lakh</Text>
+// // // //         </TouchableOpacity>
+// // // //       </View>
+// // // //     </ScrollView>
+// // // //   );
+// // // // };
+
+// // // // const styles = StyleSheet.create({
+// // // //   container: { flex: 1, backgroundColor: '#fff' },
+// // // //   carImage: { width: '100%', height: 280 },
+// // // //   infoContainer: { padding: 20 },
+// // // //   carTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 6 },
+// // // //   location: { color: '#666', fontSize: 15, marginBottom: 20 },
+// // // //   bidInfo: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 25 },
+// // // //   label: { fontSize: 13, color: '#888' },
+// // // //   currentBid: { fontSize: 24, fontWeight: 'bold', color: '#E30613' },
+// // // //   time: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
+// // // //   bidInputContainer: { marginBottom: 25 },
+// // // //   bidLabel: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
+// // // //   inputRow: { flexDirection: 'row', alignItems: 'center' },
+// // // //   bidInput: { 
+// // // //     flex: 1, 
+// // // //     borderWidth: 1, 
+// // // //     borderColor: '#ddd', 
+// // // //     borderRadius: 12, 
+// // // //     padding: 16, 
+// // // //     fontSize: 18 
+// // // //   },
+// // // //   bidButton: { 
+// // // //     backgroundColor: '#E30613', 
+// // // //     marginLeft: 12, 
+// // // //     paddingHorizontal: 25, 
+// // // //     justifyContent: 'center', 
+// // // //     borderRadius: 12 
+// // // //   },
+// // // //   bidButtonText: { color: '#fff', fontWeight: 'bold' },
+// // // //   note: { color: '#666', fontSize: 13, marginTop: 8 },
+// // // //   buyNowButton: { 
+// // // //     backgroundColor: '#28a745', 
+// // // //     padding: 18, 
+// // // //     borderRadius: 12, 
+// // // //     alignItems: 'center' 
+// // // //   },
+// // // //   buyNowText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+// // // // });
+
+// // // // export default CarDetailScreen;
+
+// // // import React, { useState, useEffect } from 'react';
+// // // import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+// // // import { Ionicons } from '@expo/vector-icons';
+
+// // // const CarDetailScreen = ({ route, navigation }) => {
+// // //   const { car } = route.params;
+
+// // //   const [activeTab, setActiveTab] = useState('EXTERIOR');
+// // //   const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37m 52s in seconds
+// // //   const [bidAmount, setBidAmount] = useState('');
+// // //   const [isBalanceLow, setIsBalanceLow] = useState(true); // Screenshot ke hisaab se low hai
+
+// // //   // Real Countdown Timer
+// // //   useEffect(() => {
+// // //     const interval = setInterval(() => {
+// // //       setTimeLeft((prev) => {
+// // //         if (prev <= 0) {
+// // //           clearInterval(interval);
+// // //           return 0;
+// // //         }
+// // //         return prev - 1;
+// // //       });
+// // //     }, 1000);
+
+// // //     return () => clearInterval(interval);
+// // //   }, []);
+
+// // //   const formatTime = (seconds) => {
+// // //     const minutes = Math.floor(seconds / 60);
+// // //     const secs = seconds % 60;
+// // //     return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+// // //   };
+
+// // //   const placeBid = () => {
+// // //     if (!bidAmount || parseFloat(bidAmount) < 10000) {
+// // //       Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
+// // //       return;
+// // //     }
+// // //     if (isBalanceLow) {
+// // //       Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
+// // //       return;
+// // //     }
+// // //     Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed.`);
+// // //     setBidAmount('');
+// // //   };
+
+// // //   const startAutoBid = () => {
+// // //     Alert.alert('Auto Bid', 'Auto bidding feature will be activated soon.');
+// // //   };
+
+// // //   return (
+// // //     <ScrollView style={styles.container}>
+// // //       {/* Top Bar */}
+// // //       <View style={styles.topBar}>
+// // //         <TouchableOpacity onPress={() => navigation.goBack()}>
+// // //           <Ionicons name="arrow-up" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //         <View style={{ flex: 1, marginLeft: 12 }}>
+// // //           <Text style={styles.carName} numberOfLines={1}>
+// // //             MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
+// // //           </Text>
+// // //           <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+// // //         </View>
+// // //         <TouchableOpacity>
+// // //           <Ionicons name="share-social-outline" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={{ marginLeft: 16 }}>
+// // //           <Ionicons name="heart-outline" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //       </View>
+
+// // //       {/* Car Image */}
+// // //       <Image source={{ uri: car.image }} style={styles.carImage} />
+
+// // //       {/* Inspection Report Header */}
+// // //       <View style={styles.inspectionHeader}>
+// // //         <Text style={styles.inspectionTitle}>Inspection report</Text>
+// // //       </View>
+
+// // //       {/* Inspection Tabs */}
+// // //       <View style={styles.tabContainer}>
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('CAR DOCUMENTS')}>
+// // //           <Text style={[styles.tabText, activeTab === 'CAR DOCUMENTS' && styles.activeTabText]}>CAR DOCUMENTS</Text>
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={[styles.tabItem, activeTab === 'EXTERIOR' && styles.activeTab]} onPress={() => setActiveTab('EXTERIOR')}>
+// // //           <Text style={[styles.tabText, activeTab === 'EXTERIOR' && styles.activeTabText]}>EXTERIOR</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ENGINE')}>
+// // //           <Text style={styles.tabText}>ENGINE</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('AC')}>
+// // //           <Text style={styles.tabText}>AC</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>5</Text></View>
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ELECTRIK')}>
+// // //           <Text style={styles.tabText}>ELECTRIK</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4.5</Text></View>
+// // //         </TouchableOpacity>
+// // //       </View>
+
+// // //       {/* Exterior Section */}
+// // //       {activeTab === 'EXTERIOR' && (
+// // //         <View style={styles.exteriorSection}>
+// // //           <View style={styles.ratingRow}>
+// // //             <Text style={styles.sectionTitle}>Exterior</Text>
+// // //             <View style={styles.stars}>
+// // //               <Text>★★★★☆</Text>
+// // //               <View style={styles.ratingBox}><Text style={styles.ratingBoxText}>4</Text></View>
+// // //             </View>
+// // //           </View>
+
+// // //           {/* Structure */}
+// // //           <View style={styles.detailRow}>
+// // //             <Ionicons name="checkmark-circle" size={22} color="#28a745" />
+// // //             <Text style={styles.detailText}>Pillar, Apron, Boot Floor, Cowl Top</Text>
+// // //             <Image source={{ uri: 'https://picsum.photos/id/20/80/60' }} style={styles.smallImage} />
+// // //           </View>
+
+// // //           {/* Ext. Panels */}
+// // //           <Text style={styles.subTitle}>Ext. Panels</Text>
+
+// // //           <View style={styles.panelRow}>
+// // //             <Ionicons name="checkmark-circle" size={22} color="#28a745" />
+// // //             <Text style={styles.panelText}>Roof</Text>
+// // //             <Image source={{ uri: 'https://picsum.photos/id/1015/80/60' }} style={styles.smallImage} />
+// // //           </View>
+
+// // //           <View style={styles.panelRow}>
+// // //             <Ionicons name="close-circle" size={22} color="#FF3B30" />
+// // //             <View style={{ flex: 1 }}>
+// // //               <Text style={styles.panelText}>Bonnet/Hood</Text>
+// // //               <Text style={styles.issueText}>Dented, Scratched</Text>
+// // //             </View>
+// // //             <Image source={{ uri: 'https://picsum.photos/id/106/80/60' }} style={styles.smallImage} />
+// // //           </View>
+
+// // //           <View style={styles.panelRow}>
+// // //             <Ionicons name="close-circle" size={22} color="#FF3B30" />
+// // //             <View style={{ flex: 1 }}>
+// // //               <Text style={styles.panelText}>Dicky Door / Boot Door</Text>
+// // //               <Text style={styles.issueText}>Repainted, Dented, Scratched</Text>
+// // //             </View>
+// // //             <Image source={{ uri: 'https://picsum.photos/id/107/80/60' }} style={styles.smallImage} />
+// // //           </View>
+
+// // //           {/* More panels can be added similarly */}
+// // //         </View>
+// // //       )}
+
+// // //       {/* Low Balance Banner */}
+// // //       {isBalanceLow && (
+// // //         <View style={styles.lowBalanceBanner}>
+// // //           <Ionicons name="car-outline" size={28} color="#fff" />
+// // //           <View style={{ marginLeft: 12, flex: 1 }}>
+// // //             <Text style={styles.bannerTitle}>Low Account Balance</Text>
+// // //             <Text style={styles.bannerText}>
+// // //               Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
+// // //             </Text>
+// // //           </View>
+// // //         </View>
+// // //       )}
+
+// // //       {/* Timer & Buttons */}
+// // //       <View style={styles.bottomSection}>
+// // //         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+
+// // //         <View style={styles.buttonContainer}>
+// // //           <TouchableOpacity 
+// // //             style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]} 
+// // //             onPress={placeBid}
+// // //             disabled={isBalanceLow}
+// // //           >
+// // //             <Text style={styles.placeBidText}>Place Bid</Text>
+// // //           </TouchableOpacity>
+
+// // //           <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
+// // //             <Text style={styles.autoBidText}>Start Auto Bid</Text>
+// // //           </TouchableOpacity>
+// // //         </View>
+// // //       </View>
+// // //     </ScrollView>
+// // //   );
+// // // };
+
+// // // const styles = StyleSheet.create({
+// // //   container: { flex: 1, backgroundColor: '#f8f9fa' },
+
+// // //   topBar: {
+// // //     flexDirection: 'row',
+// // //     alignItems: 'center',
+// // //     padding: 16,
+// // //     backgroundColor: '#fff',
+// // //     borderBottomWidth: 1,
+// // //     borderBottomColor: '#eee',
+// // //   },
+// // //   carName: { fontSize: 16, fontWeight: '600' },
+// // //   carPrice: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
+
+// // //   carImage: { width: '100%', height: 240 },
+
+// // //   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
+// // //   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
+
+// // //   tabContainer: {
+// // //     flexDirection: 'row',
+// // //     backgroundColor: '#fff',
+// // //     paddingVertical: 10,
+// // //     paddingHorizontal: 10,
+// // //     borderBottomWidth: 1,
+// // //     borderBottomColor: '#eee',
+// // //   },
+// // //   tabItem: {
+// // //     alignItems: 'center',
+// // //     marginHorizontal: 8,
+// // //   },
+// // //   tabText: { fontSize: 12, color: '#666' },
+// // //   activeTabText: { color: '#E30613', fontWeight: 'bold' },
+// // //   activeTab: { borderBottomWidth: 3, borderBottomColor: '#E30613' },
+// // //   ratingBadge: {
+// // //     backgroundColor: '#28a745',
+// // //     paddingHorizontal: 8,
+// // //     paddingVertical: 2,
+// // //     borderRadius: 4,
+// // //     marginTop: 4,
+// // //   },
+// // //   ratingText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+
+// // //   exteriorSection: { padding: 16, backgroundColor: '#fff' },
+// // //   ratingRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+// // //   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
+// // //   stars: { flexDirection: 'row', alignItems: 'center' },
+// // //   ratingBox: { backgroundColor: '#28a745', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6, marginLeft: 8 },
+// // //   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
+
+// // //   detailRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16 },
+// // //   detailText: { flex: 1, marginLeft: 12, fontSize: 15 },
+
+// // //   subTitle: { fontSize: 16, fontWeight: '600', marginTop: 10, marginBottom: 12 },
+
+// // //   panelRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
+// // //   panelText: { flex: 1, marginLeft: 12, fontSize: 15, fontWeight: '500' },
+// // //   issueText: { marginLeft: 12, color: '#FF3B30', fontSize: 13 },
+
+// // //   smallImage: { width: 60, height: 45, borderRadius: 6 },
+
+// // //   lowBalanceBanner: {
+// // //     backgroundColor: '#FF3B30',
+// // //     padding: 16,
+// // //     flexDirection: 'row',
+// // //     alignItems: 'center',
+// // //     marginHorizontal: 16,
+// // //     marginVertical: 12,
+// // //     borderRadius: 12,
+// // //   },
+// // //   bannerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+// // //   bannerText: { color: '#fff', fontSize: 13, marginTop: 4 },
+
+// // //   bottomSection: { padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#eee' },
+// // //   timerText: { fontSize: 22, fontWeight: 'bold', color: '#E30613', textAlign: 'center', marginBottom: 16 },
+
+// // //   buttonContainer: { flexDirection: 'row', justifyContent: 'space-between' },
+// // //   placeBidButton: {
+// // //     flex: 1,
+// // //     backgroundColor: '#E30613',
+// // //     paddingVertical: 16,
+// // //     borderRadius: 12,
+// // //     alignItems: 'center',
+// // //     marginRight: 8,
+// // //   },
+// // //   disabledButton: { backgroundColor: '#999' },
+// // //   placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+
+// // //   autoBidButton: {
+// // //     flex: 1,
+// // //     backgroundColor: '#fff',
+// // //     borderWidth: 1.5,
+// // //     borderColor: '#E30613',
+// // //     paddingVertical: 16,
+// // //     borderRadius: 12,
+// // //     alignItems: 'center',
+// // //   },
+// // //   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
+// // // });
+
+// // // export default CarDetailScreen;
+
+// // // import React, { useState, useEffect } from 'react';
+// // // import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+// // // import { Ionicons } from '@expo/vector-icons';
+
+// // // const CarDetailScreen = ({ route, navigation }) => {
+// // //   const { car } = route.params;
+
+// // //   const [activeTab, setActiveTab] = useState('EXTERIOR');
+// // //   const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37 minutes 52 seconds
+// // //   const [bidAmount, setBidAmount] = useState('');
+// // //   const [isBalanceLow, setIsBalanceLow] = useState(true);
+
+// // //   // Real Countdown Timer
+// // //   useEffect(() => {
+// // //     const interval = setInterval(() => {
+// // //       setTimeLeft((prev) => {
+// // //         if (prev <= 0) return 0;
+// // //         return prev - 1;
+// // //       });
+// // //     }, 1000);
+
+// // //     return () => clearInterval(interval);
+// // //   }, []);
+
+// // //   const formatTime = (seconds) => {
+// // //     const minutes = Math.floor(seconds / 60);
+// // //     const secs = seconds % 60;
+// // //     return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+// // //   };
+
+// // //   const placeBid = () => {
+// // //     if (!bidAmount || parseFloat(bidAmount) < 10000) {
+// // //       Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
+// // //       return;
+// // //     }
+// // //     if (isBalanceLow) {
+// // //       Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
+// // //       return;
+// // //     }
+// // //     Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed successfully.`);
+// // //     setBidAmount('');
+// // //   };
+
+// // //   const startAutoBid = () => {
+// // //     Alert.alert('Auto Bid', 'Auto bidding will be activated soon.');
+// // //   };
+
+// // //   // Dummy Data for different tabs
+// // //   const inspectionData = {
+// // //     EXTERIOR: {
+// // //       rating: '4',
+// // //       title: 'Exterior',
+// // //       items: [
+// // //         { status: 'good', text: 'Pillar, Apron, Boot Floor, Cowl Top' },
+// // //         { status: 'good', text: 'Roof' },
+// // //         { status: 'bad', text: 'Bonnet/Hood - Dented, Scratched' },
+// // //         { status: 'bad', text: 'Dicky Door / Boot Door - Repainted, Dented, Scratched' },
+// // //         { status: 'bad', text: 'Left Door Front - Dented, Scratched' },
+// // //         { status: 'bad', text: 'Left Door Rear - Dented, Scratched' },
+// // //         { status: 'bad', text: 'Right Door Front - Dented, Scratched' },
+// // //         { status: 'bad', text: 'Right Door Rear - Repainted, Dented, Scratched' },
+// // //       ]
+// // //     },
+// // //     ENGINE: {
+// // //       rating: '4',
+// // //       title: 'Engine',
+// // //       items: [
+// // //         { status: 'good', text: 'Engine Mounting' },
+// // //         { status: 'good', text: 'Engine Sound' },
+// // //         { status: 'good', text: 'No Oil Leakage' },
+// // //         { status: 'bad', text: 'Minor Smoke on Cold Start' },
+// // //         { status: 'good', text: 'Radiator Condition' },
+// // //       ]
+// // //     },
+// // //     AC: {
+// // //       rating: '5',
+// // //       title: 'AC',
+// // //       items: [
+// // //         { status: 'good', text: 'Cooling Performance' },
+// // //         { status: 'good', text: 'AC Gas Level' },
+// // //         { status: 'good', text: 'Blower Speed' },
+// // //         { status: 'good', text: 'No Unusual Noise' },
+// // //       ]
+// // //     },
+// // //     ELECTRIK: {
+// // //       rating: '4.5',
+// // //       title: 'Electrical',
+// // //       items: [
+// // //         { status: 'good', text: 'Battery Condition' },
+// // //         { status: 'good', text: 'Headlights & Taillights' },
+// // //         { status: 'good', text: 'Power Windows' },
+// // //         { status: 'bad', text: 'Infotainment System - Minor Glitch' },
+// // //         { status: 'good', text: 'Wiring & Connectors' },
+// // //       ]
+// // //     }
+// // //   };
+
+// // //   const currentData = inspectionData[activeTab] || inspectionData.EXTERIOR;
+
+// // //   return (
+// // //     <ScrollView style={styles.container}>
+// // //       {/* Top Bar */}
+// // //       <View style={styles.topBar}>
+// // //         <TouchableOpacity onPress={() => navigation.goBack()}>
+// // //           <Ionicons name="arrow-up" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //         <View style={{ flex: 1, marginLeft: 12 }}>
+// // //           <Text style={styles.carName} numberOfLines={1}>
+// // //             MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
+// // //           </Text>
+// // //           <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+// // //         </View>
+// // //         <TouchableOpacity>
+// // //           <Ionicons name="share-social-outline" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //         <TouchableOpacity style={{ marginLeft: 16 }}>
+// // //           <Ionicons name="heart-outline" size={24} color="#000" />
+// // //         </TouchableOpacity>
+// // //       </View>
+
+// // //       {/* Car Image */}
+// // //       <Image source={{ uri: car.image }} style={styles.carImage} />
+
+// // //       {/* Inspection Report Header */}
+// // //       <View style={styles.inspectionHeader}>
+// // //         <Text style={styles.inspectionTitle}>Inspection report</Text>
+// // //       </View>
+
+// // //       {/* Inspection Tabs */}
+// // //       <View style={styles.tabContainer}>
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('EXTERIOR')}>
+// // //           <Text style={[styles.tabText, activeTab === 'EXTERIOR' && styles.activeTabText]}>EXTERIOR</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
+// // //         </TouchableOpacity>
+
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ENGINE')}>
+// // //           <Text style={[styles.tabText, activeTab === 'ENGINE' && styles.activeTabText]}>ENGINE</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
+// // //         </TouchableOpacity>
+
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('AC')}>
+// // //           <Text style={[styles.tabText, activeTab === 'AC' && styles.activeTabText]}>AC</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>5</Text></View>
+// // //         </TouchableOpacity>
+
+// // //         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ELECTRIK')}>
+// // //           <Text style={[styles.tabText, activeTab === 'ELECTRIK' && styles.activeTabText]}>ELECTRIK</Text>
+// // //           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4.5</Text></View>
+// // //         </TouchableOpacity>
+// // //       </View>
+
+// // //       {/* Dynamic Content based on Tab */}
+// // //       <View style={styles.contentContainer}>
+// // //         <View style={styles.ratingRow}>
+// // //           <Text style={styles.sectionTitle}>{currentData.title}</Text>
+// // //           <View style={styles.starsContainer}>
+// // //             <Text style={styles.stars}>★★★★☆</Text>
+// // //             <View style={styles.ratingBox}>
+// // //               <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
+// // //             </View>
+// // //           </View>
+// // //         </View>
+
+// // //         {currentData.items.map((item, index) => (
+// // //           <View key={index} style={styles.panelRow}>
+// // //             <Ionicons 
+// // //               name={item.status === 'good' ? "checkmark-circle" : "close-circle"} 
+// // //               size={24} 
+// // //               color={item.status === 'good' ? "#28a745" : "#FF3B30"} 
+// // //             />
+// // //             <View style={{ flex: 1, marginLeft: 12 }}>
+// // //               <Text style={styles.panelText}>{item.text}</Text>
+// // //             </View>
+// // //             <Image 
+// // //               source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }} 
+// // //               style={styles.smallImage} 
+// // //             />
+// // //           </View>
+// // //         ))}
+// // //       </View>
+
+// // //       {/* Low Account Balance Banner */}
+// // //       {isBalanceLow && (
+// // //         <View style={styles.lowBalanceBanner}>
+// // //           <Ionicons name="car-outline" size={28} color="#fff" />
+// // //           <View style={{ marginLeft: 12, flex: 1 }}>
+// // //             <Text style={styles.bannerTitle}>Low Account Balance</Text>
+// // //             <Text style={styles.bannerText}>
+// // //               Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
+// // //             </Text>
+// // //           </View>
+// // //         </View>
+// // //       )}
+
+// // //       {/* Timer and Action Buttons */}
+// // //       <View style={styles.bottomSection}>
+// // //         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+
+// // //         <View style={styles.buttonContainer}>
+// // //           <TouchableOpacity 
+// // //             style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]} 
+// // //             onPress={placeBid}
+// // //             disabled={isBalanceLow}
+// // //           >
+// // //             <Text style={styles.placeBidText}>Place Bid</Text>
+// // //           </TouchableOpacity>
+
+// // //           <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
+// // //             <Text style={styles.autoBidText}>Start Auto Bid</Text>
+// // //           </TouchableOpacity>
+// // //         </View>
+// // //       </View>
+// // //     </ScrollView>
+// // //   );
+// // // };
+
+// // // const styles = StyleSheet.create({
+// // //   container: { flex: 1, backgroundColor: '#f8f9fa' },
+
+// // //   topBar: {
+// // //     flexDirection: 'row',
+// // //     alignItems: 'center',
+// // //     padding: 16,
+// // //     backgroundColor: '#fff',
+// // //     borderBottomWidth: 1,
+// // //     borderBottomColor: '#eee',
+// // //   },
+// // //   carName: { fontSize: 16, fontWeight: '600' },
+// // //   carPrice: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
+
+// // //   carImage: { width: '100%', height: 240 },
+
+// // //   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
+// // //   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
+
+// // //   tabContainer: {
+// // //     flexDirection: 'row',
+// // //     backgroundColor: '#fff',
+// // //     paddingVertical: 12,
+// // //     paddingHorizontal: 10,
+// // //     borderBottomWidth: 1,
+// // //     borderBottomColor: '#eee',
+// // //   },
+// // //   tabItem: {
+// // //     alignItems: 'center',
+// // //     marginHorizontal: 6,
+// // //   },
+// // //   tabText: { fontSize: 13, color: '#666' },
+// // //   activeTabText: { color: '#E30613', fontWeight: 'bold' },
+// // //   ratingBadge: {
+// // //     backgroundColor: '#28a745',
+// // //     paddingHorizontal: 8,
+// // //     paddingVertical: 2,
+// // //     borderRadius: 4,
+// // //     marginTop: 4,
+// // //   },
+// // //   ratingText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+
+// // //   contentContainer: { padding: 16, backgroundColor: '#fff' },
+// // //   ratingRow: { 
+// // //     flexDirection: 'row', 
+// // //     justifyContent: 'space-between', 
+// // //     alignItems: 'center', 
+// // //     marginBottom: 20 
+// // //   },
+// // //   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
+// // //   starsContainer: { flexDirection: 'row', alignItems: 'center' },
+// // //   stars: { fontSize: 18, marginRight: 8 },
+// // //   ratingBox: { 
+// // //     backgroundColor: '#28a745', 
+// // //     paddingHorizontal: 10, 
+// // //     paddingVertical: 4, 
+// // //     borderRadius: 6 
+// // //   },
+// // //   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
+
+// // //   panelRow: { 
+// // //     flexDirection: 'row', 
+// // //     alignItems: 'center', 
+// // //     marginBottom: 16 
+// // //   },
+// // //   panelText: { 
+// // //     flex: 1, 
+// // //     marginLeft: 12, 
+// // //     fontSize: 15, 
+// // //     fontWeight: '500' 
+// // //   },
+
+// // //   smallImage: { 
+// // //     width: 70, 
+// // //     height: 50, 
+// // //     borderRadius: 6 
+// // //   },
+
+// // //   lowBalanceBanner: {
+// // //     backgroundColor: '#FF3B30',
+// // //     padding: 16,
+// // //     flexDirection: 'row',
+// // //     alignItems: 'center',
+// // //     marginHorizontal: 16,
+// // //     marginVertical: 12,
+// // //     borderRadius: 12,
+// // //   },
+// // //   bannerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+// // //   bannerText: { color: '#fff', fontSize: 13, marginTop: 4 },
+
+// // //   bottomSection: { 
+// // //     padding: 16, 
+// // //     backgroundColor: '#fff', 
+// // //     borderTopWidth: 1, 
+// // //     borderTopColor: '#eee' 
+// // //   },
+// // //   timerText: { 
+// // //     fontSize: 24, 
+// // //     fontWeight: 'bold', 
+// // //     color: '#E30613', 
+// // //     textAlign: 'center', 
+// // //     marginBottom: 20 
+// // //   },
+
+// // //   buttonContainer: { 
+// // //     flexDirection: 'row', 
+// // //     justifyContent: 'space-between' 
+// // //   },
+// // //   placeBidButton: {
+// // //     flex: 1,
+// // //     backgroundColor: '#E30613',
+// // //     paddingVertical: 16,
+// // //     borderRadius: 12,
+// // //     alignItems: 'center',
+// // //     marginRight: 8,
+// // //   },
+// // //   disabledButton: { backgroundColor: '#999' },
+// // //   placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+
+// // //   autoBidButton: {
+// // //     flex: 1,
+// // //     backgroundColor: '#fff',
+// // //     borderWidth: 1.5,
+// // //     borderColor: '#E30613',
+// // //     paddingVertical: 16,
+// // //     borderRadius: 12,
+// // //     alignItems: 'center',
+// // //   },
+// // //   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
+// // // });
+
+// // // export default CarDetailScreen;
+
+
+
+// // import React, { useState, useEffect, useRef } from 'react';
+// // import { 
+// //   View, 
+// //   Text, 
+// //   StyleSheet, 
+// //   ScrollView, 
+// //   TouchableOpacity, 
+// //   Image, 
+// //   Alert, 
+// //   FlatList, 
+// //   Dimensions 
+// // } from 'react-native';
 // // import { Ionicons } from '@expo/vector-icons';
-// // import dayjs from 'dayjs';
+
+// // const { width } = Dimensions.get('window');
 
 // // const CarDetailScreen = ({ route, navigation }) => {
 // //   const { car } = route.params;
-// //   const [bidAmount, setBidAmount] = useState('');
-// //   const [timeLeft, setTimeLeft] = useState(car.timeLeft || '2h 30m');
 
-// //   // Fake countdown
+// //   const [activeTab, setActiveTab] = useState('EXTERIOR');
+// //   const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37m 52s
+// //   const [bidAmount, setBidAmount] = useState('');
+// //   const [isBalanceLow, setIsBalanceLow] = useState(true);
+// //   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+// //   const flatListRef = useRef(null);
+
+// //   // Car Images for Carousel (Multiple images)
+// //   const carImages = [
+// //     car.image || 'https://picsum.photos/id/1015/800/500',
+// //     'https://picsum.photos/id/106/800/500',
+// //     'https://picsum.photos/id/1074/800/500',
+// //     'https://picsum.photos/id/201/800/500',
+// //     'https://picsum.photos/id/133/800/500',
+// //   ];
+
+// //   // Real Countdown Timer
 // //   useEffect(() => {
 // //     const interval = setInterval(() => {
-// //       setTimeLeft(prev => {
-// //         if (prev.includes('m')) {
-// //           let min = parseInt(prev);
-// //           if (min > 1) return `${min-1}m left`;
-// //           return 'Auction ending soon';
-// //         }
-// //         return prev;
-// //       });
-// //     }, 60000); // every minute
-
+// //       setTimeLeft((prev) => (prev <= 0 ? 0 : prev - 1));
+// //     }, 1000);
 // //     return () => clearInterval(interval);
 // //   }, []);
 
+// //   const formatTime = (seconds) => {
+// //     const minutes = Math.floor(seconds / 60);
+// //     const secs = seconds % 60;
+// //     return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+// //   };
+
 // //   const placeBid = () => {
-// //     if (!bidAmount || parseFloat(bidAmount) < 100000) {
-// //       Alert.alert('Invalid Bid', 'Please enter a valid bid amount');
+// //     if (!bidAmount || parseFloat(bidAmount) < 10000) {
+// //       Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
 // //       return;
 // //     }
-// //     Alert.alert('Bid Placed!', `Your bid of ₹${bidAmount} has been placed successfully.`);
+// //     if (isBalanceLow) {
+// //       Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
+// //       return;
+// //     }
+// //     Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed successfully.`);
 // //     setBidAmount('');
+// //   };
+
+// //   const startAutoBid = () => {
+// //     Alert.alert('Auto Bid', 'Auto bidding will be activated soon.');
+// //   };
+
+// //   // Dummy Inspection Data
+// //   const inspectionData = {
+// //     EXTERIOR: {
+// //       rating: '4',
+// //       title: 'Exterior',
+// //       items: [
+// //         { status: 'good', text: 'Pillar, Apron, Boot Floor, Cowl Top' },
+// //         { status: 'good', text: 'Roof' },
+// //         { status: 'bad', text: 'Bonnet/Hood - Dented, Scratched' },
+// //         { status: 'bad', text: 'Dicky Door / Boot Door - Repainted, Dented, Scratched' },
+// //         { status: 'bad', text: 'Left Door Front - Dented, Scratched' },
+// //         { status: 'bad', text: 'Left Door Rear - Dented, Scratched' },
+// //         { status: 'bad', text: 'Right Door Front - Dented, Scratched' },
+// //         { status: 'bad', text: 'Right Door Rear - Repainted, Dented, Scratched' },
+// //       ]
+// //     },
+// //     ENGINE: {
+// //       rating: '4',
+// //       title: 'Engine',
+// //       items: [
+// //         { status: 'good', text: 'Engine Mounting' },
+// //         { status: 'good', text: 'Engine Sound' },
+// //         { status: 'good', text: 'No Oil Leakage' },
+// //         { status: 'bad', text: 'Minor Smoke on Cold Start' },
+// //         { status: 'good', text: 'Radiator Condition' },
+// //       ]
+// //     },
+// //     AC: {
+// //       rating: '5',
+// //       title: 'AC',
+// //       items: [
+// //         { status: 'good', text: 'Cooling Performance' },
+// //         { status: 'good', text: 'AC Gas Level' },
+// //         { status: 'good', text: 'Blower Speed' },
+// //         { status: 'good', text: 'No Unusual Noise' },
+// //       ]
+// //     },
+// //     ELECTRIK: {
+// //       rating: '4.5',
+// //       title: 'Electrical',
+// //       items: [
+// //         { status: 'good', text: 'Battery Condition' },
+// //         { status: 'good', text: 'Headlights & Taillights' },
+// //         { status: 'good', text: 'Power Windows' },
+// //         { status: 'bad', text: 'Infotainment System - Minor Glitch' },
+// //         { status: 'good', text: 'Wiring & Connectors' },
+// //       ]
+// //     }
+// //   };
+
+// //   const currentData = inspectionData[activeTab] || inspectionData.EXTERIOR;
+
+// //   // Handle image scroll
+// //   const onImageScroll = (event) => {
+// //     const contentOffsetX = event.nativeEvent.contentOffset.x;
+// //     const index = Math.round(contentOffsetX / width);
+// //     setCurrentImageIndex(index);
 // //   };
 
 // //   return (
 // //     <ScrollView style={styles.container}>
-// //       <Image source={{ uri: car.image }} style={styles.carImage} />
-
-// //       <View style={styles.infoContainer}>
-// //         <Text style={styles.carTitle}>{car.title}</Text>
-// //         <Text style={styles.location}>📍 {car.location} • 2021 Model</Text>
-
-// //         <View style={styles.bidInfo}>
-// //           <View>
-// //             <Text style={styles.label}>Current Highest Bid</Text>
-// //             <Text style={styles.currentBid}>{car.currentBid}</Text>
-// //           </View>
-// //           <View>
-// //             <Text style={styles.label}>Time Left</Text>
-// //             <Text style={styles.time}>{timeLeft}</Text>
-// //           </View>
-// //         </View>
-
-// //         <View style={styles.bidInputContainer}>
-// //           <Text style={styles.bidLabel}>Place your bid (₹)</Text>
-// //           <View style={styles.inputRow}>
-// //             <TextInput
-// //               style={styles.bidInput}
-// //               placeholder="Enter bid amount"
-// //               keyboardType="numeric"
-// //               value={bidAmount}
-// //               onChangeText={setBidAmount}
-// //             />
-// //             <TouchableOpacity style={styles.bidButton} onPress={placeBid}>
-// //               <Text style={styles.bidButtonText}>Place Bid</Text>
-// //             </TouchableOpacity>
-// //           </View>
-// //           <Text style={styles.note}>Minimum increment: ₹10,000</Text>
-// //         </View>
-
-// //         <TouchableOpacity style={styles.buyNowButton}>
-// //           <Text style={styles.buyNowText}>Buy Now at ₹11.50 Lakh</Text>
+// //       {/* Top Bar */}
+// //       <View style={styles.topBar}>
+// //         <TouchableOpacity onPress={() => navigation.goBack()}>
+// //           <Ionicons name="arrow-up" size={24} color="#000" />
 // //         </TouchableOpacity>
+// //         <View style={{ flex: 1, marginLeft: 12 }}>
+// //           <Text style={styles.carName} numberOfLines={1}>
+// //             MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
+// //           </Text>
+// //           <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+// //         </View>
+// //         <TouchableOpacity>
+// //           <Ionicons name="share-social-outline" size={24} color="#000" />
+// //         </TouchableOpacity>
+// //         <TouchableOpacity style={{ marginLeft: 16 }}>
+// //           <Ionicons name="heart-outline" size={24} color="#000" />
+// //         </TouchableOpacity>
+// //       </View>
+
+// //       {/* Image Carousel */}
+// //       <View style={styles.carouselContainer}>
+// //         <FlatList
+// //           ref={flatListRef}
+// //           data={carImages}
+// //           horizontal
+// //           pagingEnabled
+// //           showsHorizontalScrollIndicator={false}
+// //           onScroll={onImageScroll}
+// //           keyExtractor={(item, index) => index.toString()}
+// //           renderItem={({ item }) => (
+// //             <Image source={{ uri: item }} style={styles.carouselImage} />
+// //           )}
+// //         />
+
+// //         {/* Image Dots Indicator */}
+// //         <View style={styles.dotsContainer}>
+// //           {carImages.map((_, index) => (
+// //             <View
+// //               key={index}
+// //               style={[
+// //                 styles.dot,
+// //                 { backgroundColor: currentImageIndex === index ? '#E30613' : '#ccc' }
+// //               ]}
+// //             />
+// //           ))}
+// //         </View>
+// //       </View>
+
+// //       {/* Inspection Report Header */}
+// //       <View style={styles.inspectionHeader}>
+// //         <Text style={styles.inspectionTitle}>Inspection report</Text>
+// //       </View>
+
+// //       {/* Inspection Tabs */}
+// //       <View style={styles.tabContainer}>
+// //         {['EXTERIOR', 'ENGINE', 'AC', 'ELECTRIK'].map((tab) => (
+// //           <TouchableOpacity 
+// //             key={tab}
+// //             style={styles.tabItem} 
+// //             onPress={() => setActiveTab(tab)}
+// //           >
+// //             <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+// //               {tab}
+// //             </Text>
+// //             <View style={styles.ratingBadge}>
+// //               <Text style={styles.ratingText}>
+// //                 {inspectionData[tab].rating}
+// //               </Text>
+// //             </View>
+// //           </TouchableOpacity>
+// //         ))}
+// //       </View>
+
+// //       {/* Dynamic Content */}
+// //       <View style={styles.contentContainer}>
+// //         <View style={styles.ratingRow}>
+// //           <Text style={styles.sectionTitle}>{currentData.title}</Text>
+// //           <View style={styles.starsContainer}>
+// //             <Text style={styles.stars}>★★★★☆</Text>
+// //             <View style={styles.ratingBox}>
+// //               <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
+// //             </View>
+// //           </View>
+// //         </View>
+
+// //         {currentData.items.map((item, index) => (
+// //           <View key={index} style={styles.panelRow}>
+// //             <Ionicons
+// //               name={item.status === 'good' ? "checkmark-circle" : "close-circle"}
+// //               size={24}
+// //               color={item.status === 'good' ? "#28a745" : "#FF3B30"}
+// //             />
+// //             <View style={{ flex: 1, marginLeft: 12 }}>
+// //               <Text style={styles.panelText}>{item.text}</Text>
+// //             </View>
+// //             <Image
+// //               source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }}
+// //               style={styles.smallImage}
+// //             />
+// //           </View>
+// //         ))}
+// //       </View>
+
+// //       {/* Low Balance Banner */}
+// //       {isBalanceLow && (
+// //         <View style={styles.lowBalanceBanner}>
+// //           <Ionicons name="car-outline" size={28} color="#fff" />
+// //           <View style={{ marginLeft: 12, flex: 1 }}>
+// //             <Text style={styles.bannerTitle}>Low Account Balance</Text>
+// //             <Text style={styles.bannerText}>
+// //               Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
+// //             </Text>
+// //           </View>
+// //         </View>
+// //       )}
+
+// //       {/* Timer & Buttons */}
+// //       <View style={styles.bottomSection}>
+// //         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+
+// //         <View style={styles.buttonContainer}>
+// //           <TouchableOpacity
+// //             style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]}
+// //             onPress={placeBid}
+// //             disabled={isBalanceLow}
+// //           >
+// //             <Text style={styles.placeBidText}>Place Bid</Text>
+// //           </TouchableOpacity>
+
+// //           <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
+// //             <Text style={styles.autoBidText}>Start Auto Bid</Text>
+// //           </TouchableOpacity>
+// //         </View>
 // //       </View>
 // //     </ScrollView>
 // //   );
 // // };
 
 // // const styles = StyleSheet.create({
-// //   container: { flex: 1, backgroundColor: '#fff' },
-// //   carImage: { width: '100%', height: 280 },
-// //   infoContainer: { padding: 20 },
-// //   carTitle: { fontSize: 22, fontWeight: 'bold', marginBottom: 6 },
-// //   location: { color: '#666', fontSize: 15, marginBottom: 20 },
-// //   bidInfo: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 25 },
-// //   label: { fontSize: 13, color: '#888' },
-// //   currentBid: { fontSize: 24, fontWeight: 'bold', color: '#E30613' },
-// //   time: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
-// //   bidInputContainer: { marginBottom: 25 },
-// //   bidLabel: { fontSize: 16, fontWeight: '600', marginBottom: 10 },
-// //   inputRow: { flexDirection: 'row', alignItems: 'center' },
-// //   bidInput: { 
-// //     flex: 1, 
-// //     borderWidth: 1, 
-// //     borderColor: '#ddd', 
-// //     borderRadius: 12, 
-// //     padding: 16, 
-// //     fontSize: 18 
+// //   container: { flex: 1, backgroundColor: '#f8f9fa' },
+
+// //   topBar: {
+// //     flexDirection: 'row',
+// //     alignItems: 'center',
+// //     padding: 16,
+// //     backgroundColor: '#fff',
+// //     borderBottomWidth: 1,
+// //     borderBottomColor: '#eee',
 // //   },
-// //   bidButton: { 
-// //     backgroundColor: '#E30613', 
-// //     marginLeft: 12, 
-// //     paddingHorizontal: 25, 
-// //     justifyContent: 'center', 
-// //     borderRadius: 12 
+// //   carName: { fontSize: 16, fontWeight: '600' },
+// //   carPrice: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
+
+// //   carouselContainer: { position: 'relative' },
+// //   carouselImage: { width: width, height: 260, resizeMode: 'cover' },
+// //   dotsContainer: {
+// //     position: 'absolute',
+// //     bottom: 15,
+// //     left: 0,
+// //     right: 0,
+// //     flexDirection: 'row',
+// //     justifyContent: 'center',
+// //     gap: 6,
 // //   },
-// //   bidButtonText: { color: '#fff', fontWeight: 'bold' },
-// //   note: { color: '#666', fontSize: 13, marginTop: 8 },
-// //   buyNowButton: { 
-// //     backgroundColor: '#28a745', 
-// //     padding: 18, 
-// //     borderRadius: 12, 
-// //     alignItems: 'center' 
+// //   dot: {
+// //     width: 8,
+// //     height: 8,
+// //     borderRadius: 4,
 // //   },
-// //   buyNowText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+
+// //   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
+// //   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
+
+// //   tabContainer: {
+// //     flexDirection: 'row',
+// //     backgroundColor: '#fff',
+// //     paddingVertical: 12,
+// //     paddingHorizontal: 10,
+// //     borderBottomWidth: 1,
+// //     borderBottomColor: '#eee',
+// //   },
+// //   tabItem: { alignItems: 'center', marginHorizontal: 8 },
+// //   tabText: { fontSize: 13, color: '#666' },
+// //   activeTabText: { color: '#E30613', fontWeight: 'bold' },
+// //   ratingBadge: {
+// //     backgroundColor: '#28a745',
+// //     paddingHorizontal: 8,
+// //     paddingVertical: 2,
+// //     borderRadius: 4,
+// //     marginTop: 4,
+// //   },
+// //   ratingText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
+
+// //   contentContainer: { padding: 16, backgroundColor: '#fff' },
+// //   ratingRow: {
+// //     flexDirection: 'row',
+// //     justifyContent: 'space-between',
+// //     alignItems: 'center',
+// //     marginBottom: 20
+// //   },
+// //   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
+// //   starsContainer: { flexDirection: 'row', alignItems: 'center' },
+// //   stars: { fontSize: 18, marginRight: 8 },
+// //   ratingBox: {
+// //     backgroundColor: '#28a745',
+// //     paddingHorizontal: 10,
+// //     paddingVertical: 4,
+// //     borderRadius: 6
+// //   },
+// //   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
+
+// //   panelRow: {
+// //     flexDirection: 'row',
+// //     alignItems: 'center',
+// //     marginBottom: 16
+// //   },
+// //   panelText: {
+// //     flex: 1,
+// //     marginLeft: 12,
+// //     fontSize: 15,
+// //     fontWeight: '500'
+// //   },
+// //   smallImage: {
+// //     width: 70,
+// //     height: 50,
+// //     borderRadius: 6
+// //   },
+
+// //   lowBalanceBanner: {
+// //     backgroundColor: '#FF3B30',
+// //     padding: 16,
+// //     flexDirection: 'row',
+// //     alignItems: 'center',
+// //     marginHorizontal: 16,
+// //     marginVertical: 12,
+// //     borderRadius: 12,
+// //   },
+// //   bannerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+// //   bannerText: { color: '#fff', fontSize: 13, marginTop: 4 },
+
+// //   bottomSection: {
+// //     padding: 16,
+// //     backgroundColor: '#fff',
+// //     borderTopWidth: 1,
+// //     borderTopColor: '#eee'
+// //   },
+// //   timerText: {
+// //     fontSize: 24,
+// //     fontWeight: 'bold',
+// //     color: '#E30613',
+// //     textAlign: 'center',
+// //     marginBottom: 20
+// //   },
+// //   buttonContainer: {
+// //     flexDirection: 'row',
+// //     justifyContent: 'space-between'
+// //   },
+// //   placeBidButton: {
+// //     flex: 1,
+// //     backgroundColor: '#E30613',
+// //     paddingVertical: 16,
+// //     borderRadius: 12,
+// //     alignItems: 'center',
+// //     marginRight: 8,
+// //   },
+// //   disabledButton: { backgroundColor: '#999' },
+// //   placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+
+// //   autoBidButton: {
+// //     flex: 1,
+// //     backgroundColor: '#fff',
+// //     borderWidth: 1.5,
+// //     borderColor: '#E30613',
+// //     paddingVertical: 16,
+// //     borderRadius: 12,
+// //     alignItems: 'center',
+// //   },
+// //   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
 // // });
 
 // // export default CarDetailScreen;
 
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+// import React, { useState, useEffect, useRef } from 'react';
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   Image,
+//   ScrollView,
+//   TouchableOpacity,
+//   TextInput,
+//   Alert,
+//   Modal,
+//   FlatList,
+//   Dimensions,
+// } from 'react-native';
 // import { Ionicons } from '@expo/vector-icons';
+// import { useWallet } from './Cartcontext/WalletContext';   // ← Apna path check karo
+
+// const { width } = Dimensions.get('window');
 
 // const CarDetailScreen = ({ route, navigation }) => {
-//   const { car } = route.params;
+//   const { car } = route.params || {};
+
+//   const {
+//     balance,
+//     addMoney,
+//     placeBid,
+//     getAvailableBalance,
+//     isLowBalance,
+//   } = useWallet();
 
 //   const [activeTab, setActiveTab] = useState('EXTERIOR');
-//   const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37m 52s in seconds
+//   const [timeLeft, setTimeLeft] = useState(car?.timeLeft || 37 * 60 + 52);
 //   const [bidAmount, setBidAmount] = useState('');
-//   const [isBalanceLow, setIsBalanceLow] = useState(true); // Screenshot ke hisaab se low hai
+//   const [loading, setLoading] = useState(false);
+//   const [showAddMoneyModal, setShowAddMoneyModal] = useState(false);
+//   const [addMoneyAmount, setAddMoneyAmount] = useState('');
+//   const [addMoneyLoading, setAddMoneyLoading] = useState(false);
+//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-//   // Real Countdown Timer
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setTimeLeft((prev) => {
-//         if (prev <= 0) {
-//           clearInterval(interval);
-//           return 0;
-//         }
-//         return prev - 1;
-//       });
-//     }, 1000);
+//   const flatListRef = useRef(null);
 
-//     return () => clearInterval(interval);
-//   }, []);
+//   // Carousel Images
+//   const carImages = [
+//     car?.image || 'https://picsum.photos/id/1015/800/500',
+//     'https://picsum.photos/id/106/800/500',
+//     'https://picsum.photos/id/1074/800/500',
+//     'https://picsum.photos/id/201/800/500',
+//     'https://picsum.photos/id/133/800/500',
+//   ];
+
+//   const availableBalance = getAvailableBalance();
+//   const showBalanceWarning = isLowBalance();
+
+//   // Safe Buy Now Price
+//   const rawCurrentBid = typeof car?.currentBid === 'number'
+//     ? car.currentBid
+//     : parseFloat((car?.currentBid || '457000').toString().replace(/[₹,]/g, ''));
+
+//   const buyNowPrice = isNaN(rawCurrentBid) ? 457000 : rawCurrentBid;
 
 //   const formatTime = (seconds) => {
-//     const minutes = Math.floor(seconds / 60);
-//     const secs = seconds % 60;
-//     return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+//     const h = Math.floor(seconds / 3600);
+//     const m = Math.floor((seconds % 3600) / 60);
+//     const s = seconds % 60;
+//     return `${h}h ${m}m ${s}s`;
 //   };
 
-//   const placeBid = () => {
-//     if (!bidAmount || parseFloat(bidAmount) < 10000) {
-//       Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
-//       return;
-//     }
-//     if (isBalanceLow) {
-//       Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
-//       return;
-//     }
-//     Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed.`);
-//     setBidAmount('');
-//   };
-
-//   const startAutoBid = () => {
-//     Alert.alert('Auto Bid', 'Auto bidding feature will be activated soon.');
-//   };
-
-//   return (
-//     <ScrollView style={styles.container}>
-//       {/* Top Bar */}
-//       <View style={styles.topBar}>
-//         <TouchableOpacity onPress={() => navigation.goBack()}>
-//           <Ionicons name="arrow-up" size={24} color="#000" />
-//         </TouchableOpacity>
-//         <View style={{ flex: 1, marginLeft: 12 }}>
-//           <Text style={styles.carName} numberOfLines={1}>
-//             MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
-//           </Text>
-//           <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
-//         </View>
-//         <TouchableOpacity>
-//           <Ionicons name="share-social-outline" size={24} color="#000" />
-//         </TouchableOpacity>
-//         <TouchableOpacity style={{ marginLeft: 16 }}>
-//           <Ionicons name="heart-outline" size={24} color="#000" />
-//         </TouchableOpacity>
-//       </View>
-
-//       {/* Car Image */}
-//       <Image source={{ uri: car.image }} style={styles.carImage} />
-
-//       {/* Inspection Report Header */}
-//       <View style={styles.inspectionHeader}>
-//         <Text style={styles.inspectionTitle}>Inspection report</Text>
-//       </View>
-
-//       {/* Inspection Tabs */}
-//       <View style={styles.tabContainer}>
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('CAR DOCUMENTS')}>
-//           <Text style={[styles.tabText, activeTab === 'CAR DOCUMENTS' && styles.activeTabText]}>CAR DOCUMENTS</Text>
-//         </TouchableOpacity>
-//         <TouchableOpacity style={[styles.tabItem, activeTab === 'EXTERIOR' && styles.activeTab]} onPress={() => setActiveTab('EXTERIOR')}>
-//           <Text style={[styles.tabText, activeTab === 'EXTERIOR' && styles.activeTabText]}>EXTERIOR</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
-//         </TouchableOpacity>
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ENGINE')}>
-//           <Text style={styles.tabText}>ENGINE</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
-//         </TouchableOpacity>
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('AC')}>
-//           <Text style={styles.tabText}>AC</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>5</Text></View>
-//         </TouchableOpacity>
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ELECTRIK')}>
-//           <Text style={styles.tabText}>ELECTRIK</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4.5</Text></View>
-//         </TouchableOpacity>
-//       </View>
-
-//       {/* Exterior Section */}
-//       {activeTab === 'EXTERIOR' && (
-//         <View style={styles.exteriorSection}>
-//           <View style={styles.ratingRow}>
-//             <Text style={styles.sectionTitle}>Exterior</Text>
-//             <View style={styles.stars}>
-//               <Text>★★★★☆</Text>
-//               <View style={styles.ratingBox}><Text style={styles.ratingBoxText}>4</Text></View>
-//             </View>
-//           </View>
-
-//           {/* Structure */}
-//           <View style={styles.detailRow}>
-//             <Ionicons name="checkmark-circle" size={22} color="#28a745" />
-//             <Text style={styles.detailText}>Pillar, Apron, Boot Floor, Cowl Top</Text>
-//             <Image source={{ uri: 'https://picsum.photos/id/20/80/60' }} style={styles.smallImage} />
-//           </View>
-
-//           {/* Ext. Panels */}
-//           <Text style={styles.subTitle}>Ext. Panels</Text>
-
-//           <View style={styles.panelRow}>
-//             <Ionicons name="checkmark-circle" size={22} color="#28a745" />
-//             <Text style={styles.panelText}>Roof</Text>
-//             <Image source={{ uri: 'https://picsum.photos/id/1015/80/60' }} style={styles.smallImage} />
-//           </View>
-
-//           <View style={styles.panelRow}>
-//             <Ionicons name="close-circle" size={22} color="#FF3B30" />
-//             <View style={{ flex: 1 }}>
-//               <Text style={styles.panelText}>Bonnet/Hood</Text>
-//               <Text style={styles.issueText}>Dented, Scratched</Text>
-//             </View>
-//             <Image source={{ uri: 'https://picsum.photos/id/106/80/60' }} style={styles.smallImage} />
-//           </View>
-
-//           <View style={styles.panelRow}>
-//             <Ionicons name="close-circle" size={22} color="#FF3B30" />
-//             <View style={{ flex: 1 }}>
-//               <Text style={styles.panelText}>Dicky Door / Boot Door</Text>
-//               <Text style={styles.issueText}>Repainted, Dented, Scratched</Text>
-//             </View>
-//             <Image source={{ uri: 'https://picsum.photos/id/107/80/60' }} style={styles.smallImage} />
-//           </View>
-
-//           {/* More panels can be added similarly */}
-//         </View>
-//       )}
-
-//       {/* Low Balance Banner */}
-//       {isBalanceLow && (
-//         <View style={styles.lowBalanceBanner}>
-//           <Ionicons name="car-outline" size={28} color="#fff" />
-//           <View style={{ marginLeft: 12, flex: 1 }}>
-//             <Text style={styles.bannerTitle}>Low Account Balance</Text>
-//             <Text style={styles.bannerText}>
-//               Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
-//             </Text>
-//           </View>
-//         </View>
-//       )}
-
-//       {/* Timer & Buttons */}
-//       <View style={styles.bottomSection}>
-//         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
-
-//         <View style={styles.buttonContainer}>
-//           <TouchableOpacity 
-//             style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]} 
-//             onPress={placeBid}
-//             disabled={isBalanceLow}
-//           >
-//             <Text style={styles.placeBidText}>Place Bid</Text>
-//           </TouchableOpacity>
-
-//           <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
-//             <Text style={styles.autoBidText}>Start Auto Bid</Text>
-//           </TouchableOpacity>
-//         </View>
-//       </View>
-//     </ScrollView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, backgroundColor: '#f8f9fa' },
-
-//   topBar: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     padding: 16,
-//     backgroundColor: '#fff',
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#eee',
-//   },
-//   carName: { fontSize: 16, fontWeight: '600' },
-//   carPrice: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
-
-//   carImage: { width: '100%', height: 240 },
-
-//   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
-//   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
-
-//   tabContainer: {
-//     flexDirection: 'row',
-//     backgroundColor: '#fff',
-//     paddingVertical: 10,
-//     paddingHorizontal: 10,
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#eee',
-//   },
-//   tabItem: {
-//     alignItems: 'center',
-//     marginHorizontal: 8,
-//   },
-//   tabText: { fontSize: 12, color: '#666' },
-//   activeTabText: { color: '#E30613', fontWeight: 'bold' },
-//   activeTab: { borderBottomWidth: 3, borderBottomColor: '#E30613' },
-//   ratingBadge: {
-//     backgroundColor: '#28a745',
-//     paddingHorizontal: 8,
-//     paddingVertical: 2,
-//     borderRadius: 4,
-//     marginTop: 4,
-//   },
-//   ratingText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
-
-//   exteriorSection: { padding: 16, backgroundColor: '#fff' },
-//   ratingRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-//   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
-//   stars: { flexDirection: 'row', alignItems: 'center' },
-//   ratingBox: { backgroundColor: '#28a745', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6, marginLeft: 8 },
-//   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
-
-//   detailRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16 },
-//   detailText: { flex: 1, marginLeft: 12, fontSize: 15 },
-
-//   subTitle: { fontSize: 16, fontWeight: '600', marginTop: 10, marginBottom: 12 },
-
-//   panelRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
-//   panelText: { flex: 1, marginLeft: 12, fontSize: 15, fontWeight: '500' },
-//   issueText: { marginLeft: 12, color: '#FF3B30', fontSize: 13 },
-
-//   smallImage: { width: 60, height: 45, borderRadius: 6 },
-
-//   lowBalanceBanner: {
-//     backgroundColor: '#FF3B30',
-//     padding: 16,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginHorizontal: 16,
-//     marginVertical: 12,
-//     borderRadius: 12,
-//   },
-//   bannerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
-//   bannerText: { color: '#fff', fontSize: 13, marginTop: 4 },
-
-//   bottomSection: { padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#eee' },
-//   timerText: { fontSize: 22, fontWeight: 'bold', color: '#E30613', textAlign: 'center', marginBottom: 16 },
-
-//   buttonContainer: { flexDirection: 'row', justifyContent: 'space-between' },
-//   placeBidButton: {
-//     flex: 1,
-//     backgroundColor: '#E30613',
-//     paddingVertical: 16,
-//     borderRadius: 12,
-//     alignItems: 'center',
-//     marginRight: 8,
-//   },
-//   disabledButton: { backgroundColor: '#999' },
-//   placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-
-//   autoBidButton: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     borderWidth: 1.5,
-//     borderColor: '#E30613',
-//     paddingVertical: 16,
-//     borderRadius: 12,
-//     alignItems: 'center',
-//   },
-//   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
-// });
-
-// export default CarDetailScreen;
-
-// import React, { useState, useEffect } from 'react';
-// import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-
-// const CarDetailScreen = ({ route, navigation }) => {
-//   const { car } = route.params;
-
-//   const [activeTab, setActiveTab] = useState('EXTERIOR');
-//   const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37 minutes 52 seconds
-//   const [bidAmount, setBidAmount] = useState('');
-//   const [isBalanceLow, setIsBalanceLow] = useState(true);
-
-//   // Real Countdown Timer
+//   // Countdown Timer
 //   useEffect(() => {
+//     if (timeLeft <= 0) return;
 //     const interval = setInterval(() => {
-//       setTimeLeft((prev) => {
-//         if (prev <= 0) return 0;
-//         return prev - 1;
-//       });
+//       setTimeLeft((prev) => Math.max(0, prev - 1));
 //     }, 1000);
-
 //     return () => clearInterval(interval);
-//   }, []);
+//   }, [timeLeft]);
 
-//   const formatTime = (seconds) => {
-//     const minutes = Math.floor(seconds / 60);
-//     const secs = seconds % 60;
-//     return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+//   // Auto Image Carousel (every 3 seconds)
+//   useEffect(() => {
+//     const autoScroll = setInterval(() => {
+//       if (flatListRef.current) {
+//         const nextIndex = (currentImageIndex + 1) % carImages.length;
+//         flatListRef.current.scrollToIndex({ index: nextIndex, animated: true });
+//         setCurrentImageIndex(nextIndex);
+//       }
+//     }, 3000);
+
+//     return () => clearInterval(autoScroll);
+//   }, [currentImageIndex, carImages.length]);
+
+//   const handleImageScroll = (event) => {
+//     const contentOffsetX = event.nativeEvent.contentOffset.x;
+//     const index = Math.round(contentOffsetX / width);
+//     setCurrentImageIndex(index);
 //   };
 
-//   const placeBid = () => {
-//     if (!bidAmount || parseFloat(bidAmount) < 10000) {
-//       Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
+//   const handleAddMoney = () => {
+//     const amount = parseFloat(addMoneyAmount);
+//     if (!amount || amount <= 0) {
+//       Alert.alert('Invalid Amount', 'Please enter a valid amount');
 //       return;
 //     }
-//     if (isBalanceLow) {
-//       Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
+
+//     setAddMoneyLoading(true);
+//     setTimeout(() => {
+//       const success = addMoney(amount);
+//       setAddMoneyLoading(false);
+
+//       if (success) {
+//         Alert.alert('Success!', `₹${amount.toLocaleString('en-IN')} added to wallet`);
+//         setAddMoneyAmount('');
+//         setShowAddMoneyModal(false);
+//       } else {
+//         Alert.alert('Error', 'Failed to add money');
+//       }
+//     }, 800);
+//   };
+
+//   const handlePlaceBid = () => {
+//     if (!bidAmount) {
+//       Alert.alert('Error', 'Please enter a bid amount');
 //       return;
 //     }
-//     Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed successfully.`);
-//     setBidAmount('');
+
+//     const bidValue = parseFloat(bidAmount);
+//     if (isNaN(bidValue) || bidValue <= 0) {
+//       Alert.alert('Error', 'Please enter a valid bid amount');
+//       return;
+//     }
+
+//     if (bidValue > availableBalance) {
+//       Alert.alert(
+//         'Insufficient Balance',
+//         `You need ₹${(bidValue - availableBalance).toLocaleString('en-IN')} more.`,
+//         [
+//           { text: 'Cancel', style: 'cancel' },
+//           { text: 'Add Money', onPress: () => setShowAddMoneyModal(true) },
+//         ]
+//       );
+//       return;
+//     }
+
+//     setLoading(true);
+//     setTimeout(() => {
+//       const result = placeBid(car?.id || 'unknown', car?.title || 'Vehicle', bidValue);
+//       setLoading(false);
+
+//       if (result?.success) {
+//         Alert.alert('Success!', 'Your bid has been placed successfully.');
+//         setBidAmount('');
+//       } else {
+//         Alert.alert('Failed', result?.message || 'Could not place bid');
+//       }
+//     }, 600);
 //   };
 
-//   const startAutoBid = () => {
-//     Alert.alert('Auto Bid', 'Auto bidding will be activated soon.');
-//   };
-
-//   // Dummy Data for different tabs
+//   // Inspection Data (with Body Part)
 //   const inspectionData = {
 //     EXTERIOR: {
 //       rating: '4',
@@ -480,14 +1348,14 @@
 //         { status: 'good', text: 'Radiator Condition' },
 //       ]
 //     },
-//     AC: {
+//     BODYPART: {
 //       rating: '5',
-//       title: 'AC',
+//       title: 'Body Part',
 //       items: [
-//         { status: 'good', text: 'Cooling Performance' },
-//         { status: 'good', text: 'AC Gas Level' },
-//         { status: 'good', text: 'Blower Speed' },
-//         { status: 'good', text: 'No Unusual Noise' },
+//         { status: 'good', text: 'Fuel Tank & Seat' },
+//         { status: 'good', text: 'Mudguard & Chain Cover' },
+//         { status: 'bad', text: 'Side Panel - Scratched' },
+//         { status: 'good', text: 'Handlebar & Mirrors' },
 //       ]
 //     },
 //     ELECTRIK: {
@@ -496,8 +1364,8 @@
 //       items: [
 //         { status: 'good', text: 'Battery Condition' },
 //         { status: 'good', text: 'Headlights & Taillights' },
-//         { status: 'good', text: 'Power Windows' },
-//         { status: 'bad', text: 'Infotainment System - Minor Glitch' },
+//         { status: 'good', text: 'Indicators & Horn' },
+//         { status: 'bad', text: 'Speedometer - Minor Issue' },
 //         { status: 'good', text: 'Wiring & Connectors' },
 //       ]
 //     }
@@ -506,125 +1374,192 @@
 //   const currentData = inspectionData[activeTab] || inspectionData.EXTERIOR;
 
 //   return (
-//     <ScrollView style={styles.container}>
-//       {/* Top Bar */}
-//       <View style={styles.topBar}>
-//         <TouchableOpacity onPress={() => navigation.goBack()}>
-//           <Ionicons name="arrow-up" size={24} color="#000" />
-//         </TouchableOpacity>
-//         <View style={{ flex: 1, marginLeft: 12 }}>
-//           <Text style={styles.carName} numberOfLines={1}>
-//             MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
-//           </Text>
-//           <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
-//         </View>
-//         <TouchableOpacity>
-//           <Ionicons name="share-social-outline" size={24} color="#000" />
-//         </TouchableOpacity>
-//         <TouchableOpacity style={{ marginLeft: 16 }}>
-//           <Ionicons name="heart-outline" size={24} color="#000" />
-//         </TouchableOpacity>
-//       </View>
-
-//       {/* Car Image */}
-//       <Image source={{ uri: car.image }} style={styles.carImage} />
-
-//       {/* Inspection Report Header */}
-//       <View style={styles.inspectionHeader}>
-//         <Text style={styles.inspectionTitle}>Inspection report</Text>
-//       </View>
-
-//       {/* Inspection Tabs */}
-//       <View style={styles.tabContainer}>
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('EXTERIOR')}>
-//           <Text style={[styles.tabText, activeTab === 'EXTERIOR' && styles.activeTabText]}>EXTERIOR</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ENGINE')}>
-//           <Text style={[styles.tabText, activeTab === 'ENGINE' && styles.activeTabText]}>ENGINE</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4</Text></View>
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('AC')}>
-//           <Text style={[styles.tabText, activeTab === 'AC' && styles.activeTabText]}>AC</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>5</Text></View>
-//         </TouchableOpacity>
-
-//         <TouchableOpacity style={styles.tabItem} onPress={() => setActiveTab('ELECTRIK')}>
-//           <Text style={[styles.tabText, activeTab === 'ELECTRIK' && styles.activeTabText]}>ELECTRIK</Text>
-//           <View style={styles.ratingBadge}><Text style={styles.ratingText}>4.5</Text></View>
-//         </TouchableOpacity>
-//       </View>
-
-//       {/* Dynamic Content based on Tab */}
-//       <View style={styles.contentContainer}>
-//         <View style={styles.ratingRow}>
-//           <Text style={styles.sectionTitle}>{currentData.title}</Text>
-//           <View style={styles.starsContainer}>
-//             <Text style={styles.stars}>★★★★☆</Text>
-//             <View style={styles.ratingBox}>
-//               <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
-//             </View>
-//           </View>
-//         </View>
-
-//         {currentData.items.map((item, index) => (
-//           <View key={index} style={styles.panelRow}>
-//             <Ionicons 
-//               name={item.status === 'good' ? "checkmark-circle" : "close-circle"} 
-//               size={24} 
-//               color={item.status === 'good' ? "#28a745" : "#FF3B30"} 
-//             />
-//             <View style={{ flex: 1, marginLeft: 12 }}>
-//               <Text style={styles.panelText}>{item.text}</Text>
-//             </View>
-//             <Image 
-//               source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }} 
-//               style={styles.smallImage} 
-//             />
-//           </View>
-//         ))}
-//       </View>
-
-//       {/* Low Account Balance Banner */}
-//       {isBalanceLow && (
-//         <View style={styles.lowBalanceBanner}>
-//           <Ionicons name="car-outline" size={28} color="#fff" />
-//           <View style={{ marginLeft: 12, flex: 1 }}>
-//             <Text style={styles.bannerTitle}>Low Account Balance</Text>
-//             <Text style={styles.bannerText}>
-//               Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
+//     <>
+//       <ScrollView style={styles.container}>
+//         {/* Top Bar */}
+//         <View style={styles.topBar}>
+//           <TouchableOpacity onPress={() => navigation.goBack()}>
+//             <Ionicons name="arrow-up" size={24} color="#000" />
+//           </TouchableOpacity>
+//           <View style={{ flex: 1, marginLeft: 12 }}>
+//             <Text style={styles.carName} numberOfLines={1}>
+//               {car?.title || 'MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]'}
 //             </Text>
+//             <Text style={styles.carPrice}>₹{car?.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+//           </View>
+//           <TouchableOpacity>
+//             <Ionicons name="share-social-outline" size={24} color="#000" />
+//           </TouchableOpacity>
+//           <TouchableOpacity style={{ marginLeft: 16 }}>
+//             <Ionicons name="heart-outline" size={24} color="#000" />
+//           </TouchableOpacity>
+//         </View>
+
+//         {/* Image Carousel */}
+//         <View style={styles.carouselContainer}>
+//           <FlatList
+//             ref={flatListRef}
+//             data={carImages}
+//             horizontal
+//             pagingEnabled
+//             showsHorizontalScrollIndicator={false}
+//             onScroll={handleImageScroll}
+//             keyExtractor={(_, index) => `img-${index}`}
+//             renderItem={({ item }) => (
+//               <Image source={{ uri: item }} style={styles.carouselImage} resizeMode="cover" />
+//             )}
+//           />
+
+//           <View style={styles.dotsContainer}>
+//             {carImages.map((_, index) => (
+//               <View
+//                 key={index}
+//                 style={[styles.dot, { backgroundColor: currentImageIndex === index ? '#E30613' : '#ccc' }]}
+//               />
+//             ))}
 //           </View>
 //         </View>
-//       )}
 
-//       {/* Timer and Action Buttons */}
-//       <View style={styles.bottomSection}>
-//         <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
-
-//         <View style={styles.buttonContainer}>
-//           <TouchableOpacity 
-//             style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]} 
-//             onPress={placeBid}
-//             disabled={isBalanceLow}
-//           >
-//             <Text style={styles.placeBidText}>Place Bid</Text>
-//           </TouchableOpacity>
-
-//           <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
-//             <Text style={styles.autoBidText}>Start Auto Bid</Text>
-//           </TouchableOpacity>
+//         {/* Inspection Report Header */}
+//         <View style={styles.inspectionHeader}>
+//           <Text style={styles.inspectionTitle}>Inspection report</Text>
 //         </View>
-//       </View>
-//     </ScrollView>
+
+//         {/* Tabs */}
+//         <View style={styles.tabContainer}>
+//           {['EXTERIOR', 'ENGINE', 'BODYPART', 'ELECTRIK'].map((tab) => (
+//             <TouchableOpacity
+//               key={tab}
+//               style={styles.tabItem}
+//               onPress={() => setActiveTab(tab)}
+//             >
+//               <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+//                 {tab === 'BODYPART' ? 'BODY PART' : tab}
+//               </Text>
+//               <View style={styles.ratingBadge}>
+//                 <Text style={styles.ratingText}>{inspectionData[tab].rating}</Text>
+//               </View>
+//             </TouchableOpacity>
+//           ))}
+//         </View>
+
+//         {/* Dynamic Content */}
+//         <View style={styles.contentContainer}>
+//           <View style={styles.ratingRow}>
+//             <Text style={styles.sectionTitle}>{currentData.title}</Text>
+//             <View style={styles.starsContainer}>
+//               <Text style={styles.stars}>★★★★☆</Text>
+//               <View style={styles.ratingBox}>
+//                 <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
+//               </View>
+//             </View>
+//           </View>
+
+//           {currentData.items.map((item, index) => (
+//             <View key={index} style={styles.panelRow}>
+//               <Ionicons
+//                 name={item.status === 'good' ? "checkmark-circle" : "close-circle"}
+//                 size={24}
+//                 color={item.status === 'good' ? "#28a745" : "#FF3B30"}
+//               />
+//               <View style={{ flex: 1, marginLeft: 12 }}>
+//                 <Text style={styles.panelText}>{item.text}</Text>
+//               </View>
+//               <Image
+//                 source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }}
+//                 style={styles.smallImage}
+//               />
+//             </View>
+//           ))}
+//         </View>
+
+//         {/* Low Balance Banner */}
+//         {showBalanceWarning && (
+//           <View style={styles.lowBalanceBanner}>
+//             <Ionicons name="car-outline" size={28} color="#fff" />
+//             <View style={{ marginLeft: 12, flex: 1 }}>
+//               <Text style={styles.bannerTitle}>Low Account Balance</Text>
+//               <Text style={styles.bannerText}>
+//                 Account balance is below Min. Balance Rs. 10000. Deposit Rs. 10000 to continue bidding.
+//               </Text>
+//             </View>
+//           </View>
+//         )}
+
+//         {/* Timer & Buttons */}
+//         <View style={styles.bottomSection}>
+//           <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+
+//           <View style={styles.buttonContainer}>
+//             <TouchableOpacity
+//               style={[styles.placeBidButton, (loading || timeLeft === 0) && styles.disabledButton]}
+//               onPress={handlePlaceBid}
+//               disabled={loading || timeLeft === 0}
+//             >
+//               <Text style={styles.placeBidText}>{loading ? 'Placing...' : 'Place Bid'}</Text>
+//             </TouchableOpacity>
+
+//             <TouchableOpacity style={styles.autoBidButton} onPress={() => Alert.alert('Auto Bid', 'Feature coming soon')}>
+//               <Text style={styles.autoBidText}>Start Auto Bid</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       </ScrollView>
+
+//       {/* Add Money Modal */}
+//       <Modal visible={showAddMoneyModal} transparent animationType="slide">
+//         <View style={styles.modalOverlay}>
+//           <View style={styles.modalContent}>
+//             <View style={styles.modalHeader}>
+//               <View style={{ width: 28 }} />
+//               <Text style={styles.modalTitle}>Add Money</Text>
+//               <TouchableOpacity onPress={() => setShowAddMoneyModal(false)}>
+//                 <Ionicons name="close" size={28} color="#333" />
+//               </TouchableOpacity>
+//             </View>
+
+//             <View style={styles.modalBody}>
+//               <Text style={styles.inputLabel}>Enter Amount (₹)</Text>
+//               <TextInput
+//                 style={styles.amountInput}
+//                 placeholder="10000"
+//                 keyboardType="numeric"
+//                 value={addMoneyAmount}
+//                 onChangeText={setAddMoneyAmount}
+//                 editable={!addMoneyLoading}
+//               />
+
+//               <View style={styles.quickAddButtons}>
+//                 {[5000, 10000, 25000, 50000].map((amt) => (
+//                   <TouchableOpacity
+//                     key={amt}
+//                     style={styles.quickAddButton}
+//                     onPress={() => setAddMoneyAmount(amt.toString())}
+//                   >
+//                     <Text style={styles.quickAddButtonText}>₹{amt / 1000}K</Text>
+//                   </TouchableOpacity>
+//                 ))}
+//               </View>
+
+//               <TouchableOpacity
+//                 style={[styles.confirmButton, addMoneyLoading && styles.buttonDisabled]}
+//                 onPress={handleAddMoney}
+//                 disabled={addMoneyLoading}
+//               >
+//                 <Text style={styles.confirmButtonText}>
+//                   {addMoneyLoading ? 'Processing...' : 'Add Money'}
+//                 </Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//         </View>
+//       </Modal>
+//     </>
 //   );
 // };
 
 // const styles = StyleSheet.create({
 //   container: { flex: 1, backgroundColor: '#f8f9fa' },
-
 //   topBar: {
 //     flexDirection: 'row',
 //     alignItems: 'center',
@@ -636,7 +1571,18 @@
 //   carName: { fontSize: 16, fontWeight: '600' },
 //   carPrice: { fontSize: 20, fontWeight: 'bold', color: '#E30613' },
 
-//   carImage: { width: '100%', height: 240 },
+//   carouselContainer: { position: 'relative' },
+//   carouselImage: { width: width, height: 260, resizeMode: 'cover' },
+//   dotsContainer: {
+//     position: 'absolute',
+//     bottom: 15,
+//     left: 0,
+//     right: 0,
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//     gap: 6,
+//   },
+//   dot: { width: 8, height: 8, borderRadius: 4 },
 
 //   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
 //   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
@@ -649,10 +1595,7 @@
 //     borderBottomWidth: 1,
 //     borderBottomColor: '#eee',
 //   },
-//   tabItem: {
-//     alignItems: 'center',
-//     marginHorizontal: 6,
-//   },
+//   tabItem: { alignItems: 'center', marginHorizontal: 8 },
 //   tabText: { fontSize: 13, color: '#666' },
 //   activeTabText: { color: '#E30613', fontWeight: 'bold' },
 //   ratingBadge: {
@@ -665,39 +1608,38 @@
 //   ratingText: { color: '#fff', fontSize: 12, fontWeight: 'bold' },
 
 //   contentContainer: { padding: 16, backgroundColor: '#fff' },
-//   ratingRow: { 
-//     flexDirection: 'row', 
-//     justifyContent: 'space-between', 
-//     alignItems: 'center', 
-//     marginBottom: 20 
+//   ratingRow: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     marginBottom: 20,
 //   },
 //   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
 //   starsContainer: { flexDirection: 'row', alignItems: 'center' },
 //   stars: { fontSize: 18, marginRight: 8 },
-//   ratingBox: { 
-//     backgroundColor: '#28a745', 
-//     paddingHorizontal: 10, 
-//     paddingVertical: 4, 
-//     borderRadius: 6 
+//   ratingBox: {
+//     backgroundColor: '#28a745',
+//     paddingHorizontal: 10,
+//     paddingVertical: 4,
+//     borderRadius: 6,
 //   },
 //   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
 
-//   panelRow: { 
-//     flexDirection: 'row', 
-//     alignItems: 'center', 
-//     marginBottom: 16 
+//   panelRow: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     marginBottom: 16,
 //   },
-//   panelText: { 
-//     flex: 1, 
-//     marginLeft: 12, 
-//     fontSize: 15, 
-//     fontWeight: '500' 
+//   panelText: {
+//     flex: 1,
+//     marginLeft: 12,
+//     fontSize: 15,
+//     fontWeight: '500',
 //   },
-
-//   smallImage: { 
-//     width: 70, 
-//     height: 50, 
-//     borderRadius: 6 
+//   smallImage: {
+//     width: 70,
+//     height: 50,
+//     borderRadius: 6,
 //   },
 
 //   lowBalanceBanner: {
@@ -712,23 +1654,22 @@
 //   bannerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
 //   bannerText: { color: '#fff', fontSize: 13, marginTop: 4 },
 
-//   bottomSection: { 
-//     padding: 16, 
-//     backgroundColor: '#fff', 
-//     borderTopWidth: 1, 
-//     borderTopColor: '#eee' 
+//   bottomSection: {
+//     padding: 16,
+//     backgroundColor: '#fff',
+//     borderTopWidth: 1,
+//     borderTopColor: '#eee',
 //   },
-//   timerText: { 
-//     fontSize: 24, 
-//     fontWeight: 'bold', 
-//     color: '#E30613', 
-//     textAlign: 'center', 
-//     marginBottom: 20 
+//   timerText: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     color: '#E30613',
+//     textAlign: 'center',
+//     marginBottom: 20,
 //   },
-
-//   buttonContainer: { 
-//     flexDirection: 'row', 
-//     justifyContent: 'space-between' 
+//   buttonContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
 //   },
 //   placeBidButton: {
 //     flex: 1,
@@ -738,8 +1679,8 @@
 //     alignItems: 'center',
 //     marginRight: 8,
 //   },
-//   disabledButton: { backgroundColor: '#999' },
-//   placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+//   disabledButton: { opacity: 0.6 },
+//   placeBidText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
 
 //   autoBidButton: {
 //     flex: 1,
@@ -751,80 +1692,223 @@
 //     alignItems: 'center',
 //   },
 //   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
+
+//   // Modal Styles
+//   modalOverlay: {
+//     flex: 1,
+//     backgroundColor: 'rgba(0,0,0,0.6)',
+//     justifyContent: 'flex-end',
+//   },
+//   modalContent: {
+//     backgroundColor: '#fff',
+//     borderTopLeftRadius: 24,
+//     borderTopRightRadius: 24,
+//     paddingBottom: 30,
+//   },
+//   modalHeader: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     padding: 18,
+//     borderBottomWidth: 1,
+//     borderBottomColor: '#eee',
+//   },
+//   modalTitle: { fontSize: 19, fontWeight: 'bold' },
+//   modalBody: { padding: 20 },
+//   inputLabel: { fontSize: 15, fontWeight: '600', marginBottom: 10 },
+//   amountInput: {
+//     borderWidth: 1.5,
+//     borderColor: '#ddd',
+//     borderRadius: 12,
+//     padding: 16,
+//     fontSize: 18,
+//     marginBottom: 20,
+//   },
+//   quickAddButtons: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     marginBottom: 25,
+//   },
+//   quickAddButton: {
+//     flex: 1,
+//     marginHorizontal: 4,
+//     paddingVertical: 12,
+//     borderWidth: 1,
+//     borderColor: '#E30613',
+//     borderRadius: 10,
+//     alignItems: 'center',
+//   },
+//   quickAddButtonText: { color: '#E30613', fontWeight: '600' },
+//   confirmButton: {
+//     backgroundColor: '#E30613',
+//     paddingVertical: 16,
+//     borderRadius: 12,
+//     alignItems: 'center',
+//   },
+//   confirmButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+//   buttonDisabled: { opacity: 0.6 },
 // });
 
 // export default CarDetailScreen;
 
-
-
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  Image, 
-  Alert, 
-  FlatList, 
-  Dimensions 
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  Modal,
+  FlatList,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useWallet } from './Cartcontext/WalletContext';   // ← Apna correct path daalo
 
 const { width } = Dimensions.get('window');
 
 const CarDetailScreen = ({ route, navigation }) => {
-  const { car } = route.params;
+  const { car } = route.params || {};
+
+  const {
+    balance,
+    addMoney,
+    placeBid,
+    getAvailableBalance,
+    isLowBalance,
+  } = useWallet();
 
   const [activeTab, setActiveTab] = useState('EXTERIOR');
-  const [timeLeft, setTimeLeft] = useState(37 * 60 + 52); // 37m 52s
+  const [timeLeft, setTimeLeft] = useState(car?.timeLeft || 37 * 60 + 52);
   const [bidAmount, setBidAmount] = useState('');
-  const [isBalanceLow, setIsBalanceLow] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [showAddMoneyModal, setShowAddMoneyModal] = useState(false);
+  const [addMoneyAmount, setAddMoneyAmount] = useState('');
+  const [addMoneyLoading, setAddMoneyLoading] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const flatListRef = useRef(null);
 
-  // Car Images for Carousel (Multiple images)
+  // Carousel Images
   const carImages = [
-    car.image || 'https://picsum.photos/id/1015/800/500',
+    car?.image || 'https://picsum.photos/id/1015/800/500',
     'https://picsum.photos/id/106/800/500',
     'https://picsum.photos/id/1074/800/500',
     'https://picsum.photos/id/201/800/500',
     'https://picsum.photos/id/133/800/500',
   ];
 
-  // Real Countdown Timer
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => (prev <= 0 ? 0 : prev - 1));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const availableBalance = getAvailableBalance();
+  const showBalanceWarning = isLowBalance();
+
+  // Safe Buy Now Price
+  const rawCurrentBid = typeof car?.currentBid === 'number'
+    ? car.currentBid
+    : parseFloat((car?.currentBid || '457000').toString().replace(/[₹,]/g, ''));
+
+  const buyNowPrice = isNaN(rawCurrentBid) ? 457000 : rawCurrentBid;
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes}m ${secs.toString().padStart(2, '0')}s`;
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${h}h ${m}m ${s}s`;
   };
 
-  const placeBid = () => {
-    if (!bidAmount || parseFloat(bidAmount) < 10000) {
-      Alert.alert('Invalid Bid', 'Please enter a valid bid amount (min ₹10,000)');
+  // Countdown Timer
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => Math.max(0, prev - 1));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+  // Auto Image Carousel
+  useEffect(() => {
+    const autoScroll = setInterval(() => {
+      if (flatListRef.current) {
+        const nextIndex = (currentImageIndex + 1) % carImages.length;
+        flatListRef.current.scrollToIndex({ index: nextIndex, animated: true });
+        setCurrentImageIndex(nextIndex);
+      }
+    }, 3000);
+
+    return () => clearInterval(autoScroll);
+  }, [currentImageIndex]);
+
+  const handleImageScroll = (event) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(contentOffsetX / width);
+    setCurrentImageIndex(index);
+  };
+
+  // Add Money Handler
+  const handleAddMoney = () => {
+    const amount = parseFloat(addMoneyAmount);
+    if (!amount || amount <= 0) {
+      Alert.alert('Invalid Amount', 'Please enter a valid amount');
       return;
     }
-    if (isBalanceLow) {
-      Alert.alert('Low Balance', 'Please add money to your wallet to continue bidding.');
+
+    setAddMoneyLoading(true);
+    setTimeout(() => {
+      const success = addMoney(amount);
+      setAddMoneyLoading(false);
+
+      if (success) {
+        Alert.alert('Success!', `₹${amount.toLocaleString('en-IN')} added to your wallet`);
+        setAddMoneyAmount('');
+        setShowAddMoneyModal(false);
+      } else {
+        Alert.alert('Error', 'Failed to add money');
+      }
+    }, 800);
+  };
+
+  // Place Bid Handler (Real Working)
+  const handlePlaceBid = () => {
+    if (!bidAmount) {
+      Alert.alert('Error', 'Please enter a bid amount');
       return;
     }
-    Alert.alert('Success!', `Your bid of ₹${parseFloat(bidAmount).toLocaleString('en-IN')} has been placed successfully.`);
-    setBidAmount('');
+
+    const bidValue = parseFloat(bidAmount);
+    if (isNaN(bidValue) || bidValue <= 0) {
+      Alert.alert('Error', 'Please enter a valid bid amount');
+      return;
+    }
+
+    if (bidValue > availableBalance) {
+      Alert.alert(
+        'Insufficient Balance',
+        `You need ₹${(bidValue - availableBalance).toLocaleString('en-IN')} more to place this bid.`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Add Money', onPress: () => setShowAddMoneyModal(true) },
+        ]
+      );
+      return;
+    }
+
+    setLoading(true);
+    setTimeout(() => {
+      const result = placeBid(car?.id || 'unknown', car?.title || 'Vehicle', bidValue);
+      setLoading(false);
+
+      if (result?.success) {
+        Alert.alert('Bid Placed Successfully!', 'Your bid has been placed.');
+        setBidAmount('');
+      } else {
+        Alert.alert('Failed', result?.message || 'Could not place bid');
+      }
+    }, 800);
   };
 
-  const startAutoBid = () => {
-    Alert.alert('Auto Bid', 'Auto bidding will be activated soon.');
-  };
-
-  // Dummy Inspection Data
+  // Inspection Data
   const inspectionData = {
     EXTERIOR: {
       rating: '4',
@@ -851,14 +1935,14 @@ const CarDetailScreen = ({ route, navigation }) => {
         { status: 'good', text: 'Radiator Condition' },
       ]
     },
-    AC: {
+    BODYPART: {
       rating: '5',
-      title: 'AC',
+      title: 'Body Part',
       items: [
-        { status: 'good', text: 'Cooling Performance' },
-        { status: 'good', text: 'AC Gas Level' },
-        { status: 'good', text: 'Blower Speed' },
-        { status: 'good', text: 'No Unusual Noise' },
+        { status: 'good', text: 'Fuel Tank & Seat' },
+        { status: 'good', text: 'Mudguard & Chain Cover' },
+        { status: 'bad', text: 'Side Panel - Scratched' },
+        { status: 'good', text: 'Handlebar & Mirrors' },
       ]
     },
     ELECTRIK: {
@@ -867,8 +1951,8 @@ const CarDetailScreen = ({ route, navigation }) => {
       items: [
         { status: 'good', text: 'Battery Condition' },
         { status: 'good', text: 'Headlights & Taillights' },
-        { status: 'good', text: 'Power Windows' },
-        { status: 'bad', text: 'Infotainment System - Minor Glitch' },
+        { status: 'good', text: 'Indicators & Horn' },
+        { status: 'bad', text: 'Speedometer - Minor Issue' },
         { status: 'good', text: 'Wiring & Connectors' },
       ]
     }
@@ -876,156 +1960,193 @@ const CarDetailScreen = ({ route, navigation }) => {
 
   const currentData = inspectionData[activeTab] || inspectionData.EXTERIOR;
 
-  // Handle image scroll
-  const onImageScroll = (event) => {
-    const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(contentOffsetX / width);
-    setCurrentImageIndex(index);
-  };
-
   return (
-    <ScrollView style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-up" size={24} color="#000" />
-        </TouchableOpacity>
-        <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={styles.carName} numberOfLines={1}>
-            MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]
-          </Text>
-          <Text style={styles.carPrice}>₹{car.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+    <>
+      <ScrollView style={styles.container}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-up" size={24} color="#000" />
+          </TouchableOpacity>
+          <View style={{ flex: 1, marginLeft: 12 }}>
+            <Text style={styles.carName} numberOfLines={1}>
+              {car?.title || 'MARUTI SUZUKI Ertiga - VDI SHVS [2015 - 2018]'}
+            </Text>
+            <Text style={styles.carPrice}>₹{car?.price ? car.price.toLocaleString('en-IN') : '4,57,000'}</Text>
+          </View>
+          <TouchableOpacity>
+            <Ionicons name="share-social-outline" size={24} color="#000" />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginLeft: 16 }}>
+            <Ionicons name="heart-outline" size={24} color="#000" />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity>
-          <Ionicons name="share-social-outline" size={24} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{ marginLeft: 16 }}>
-          <Ionicons name="heart-outline" size={24} color="#000" />
-        </TouchableOpacity>
-      </View>
 
-      {/* Image Carousel */}
-      <View style={styles.carouselContainer}>
-        <FlatList
-          ref={flatListRef}
-          data={carImages}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={onImageScroll}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <Image source={{ uri: item }} style={styles.carouselImage} />
-          )}
-        />
+        {/* Image Carousel */}
+        <View style={styles.carouselContainer}>
+          <FlatList
+            ref={flatListRef}
+            data={carImages}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleImageScroll}
+            keyExtractor={(_, index) => `img-${index}`}
+            renderItem={({ item }) => (
+              <Image source={{ uri: item }} style={styles.carouselImage} resizeMode="cover" />
+            )}
+          />
 
-        {/* Image Dots Indicator */}
-        <View style={styles.dotsContainer}>
-          {carImages.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.dot,
-                { backgroundColor: currentImageIndex === index ? '#E30613' : '#ccc' }
-              ]}
-            />
+          <View style={styles.dotsContainer}>
+            {carImages.map((_, index) => (
+              <View
+                key={index}
+                style={[styles.dot, { backgroundColor: currentImageIndex === index ? '#E30613' : '#ccc' }]}
+              />
+            ))}
+          </View>
+        </View>
+
+        {/* Inspection Report Header */}
+        <View style={styles.inspectionHeader}>
+          <Text style={styles.inspectionTitle}>Inspection report</Text>
+        </View>
+
+        {/* Tabs */}
+        <View style={styles.tabContainer}>
+          {['EXTERIOR', 'ENGINE', 'BODYPART', 'ELECTRIK'].map((tab) => (
+            <TouchableOpacity
+              key={tab}
+              style={styles.tabItem}
+              onPress={() => setActiveTab(tab)}
+            >
+              <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
+                {tab === 'BODYPART' ? 'BODY PART' : tab}
+              </Text>
+              <View style={styles.ratingBadge}>
+                <Text style={styles.ratingText}>{inspectionData[tab].rating}</Text>
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
-      </View>
 
-      {/* Inspection Report Header */}
-      <View style={styles.inspectionHeader}>
-        <Text style={styles.inspectionTitle}>Inspection report</Text>
-      </View>
+        {/* Dynamic Content */}
+        <View style={styles.contentContainer}>
+          <View style={styles.ratingRow}>
+            <Text style={styles.sectionTitle}>{currentData.title}</Text>
+            <View style={styles.starsContainer}>
+              <Text style={styles.stars}>★★★★☆</Text>
+              <View style={styles.ratingBox}>
+                <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
+              </View>
+            </View>
+          </View>
 
-      {/* Inspection Tabs */}
-      <View style={styles.tabContainer}>
-        {['EXTERIOR', 'ENGINE', 'AC', 'ELECTRIK'].map((tab) => (
-          <TouchableOpacity 
-            key={tab}
-            style={styles.tabItem} 
-            onPress={() => setActiveTab(tab)}
-          >
-            <Text style={[styles.tabText, activeTab === tab && styles.activeTabText]}>
-              {tab}
-            </Text>
-            <View style={styles.ratingBadge}>
-              <Text style={styles.ratingText}>
-                {inspectionData[tab].rating}
+          {currentData.items.map((item, index) => (
+            <View key={index} style={styles.panelRow}>
+              <Ionicons
+                name={item.status === 'good' ? "checkmark-circle" : "close-circle"}
+                size={24}
+                color={item.status === 'good' ? "#28a745" : "#FF3B30"}
+              />
+              <View style={{ flex: 1, marginLeft: 12 }}>
+                <Text style={styles.panelText}>{item.text}</Text>
+              </View>
+              <Image
+                source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }}
+                style={styles.smallImage}
+              />
+            </View>
+          ))}
+        </View>
+
+        {/* Low Balance Banner */}
+        {showBalanceWarning && (
+          <View style={styles.lowBalanceBanner}>
+            <Ionicons name="car-outline" size={28} color="#fff" />
+            <View style={{ marginLeft: 12, flex: 1 }}>
+              <Text style={styles.bannerTitle}>Low Account Balance</Text>
+              <Text style={styles.bannerText}>
+                Account balance is below Min. Balance Rs. 10000. Deposit Rs. 10000 to continue bidding.
               </Text>
             </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+          </View>
+        )}
 
-      {/* Dynamic Content */}
-      <View style={styles.contentContainer}>
-        <View style={styles.ratingRow}>
-          <Text style={styles.sectionTitle}>{currentData.title}</Text>
-          <View style={styles.starsContainer}>
-            <Text style={styles.stars}>★★★★☆</Text>
-            <View style={styles.ratingBox}>
-              <Text style={styles.ratingBoxText}>{currentData.rating}</Text>
+        {/* Timer & Buttons */}
+        <View style={styles.bottomSection}>
+          <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.placeBidButton, (loading || timeLeft === 0) && styles.disabledButton]}
+              onPress={handlePlaceBid}
+              disabled={loading || timeLeft === 0}
+            >
+              <Text style={styles.placeBidText}>{loading ? 'Placing...' : 'Place Bid'}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.autoBidButton} onPress={() => Alert.alert('Auto Bid', 'Feature coming soon')}>
+              <Text style={styles.autoBidText}>Start Auto Bid</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+
+      {/* Add Money Modal */}
+      <Modal visible={showAddMoneyModal} transparent animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <View style={{ width: 28 }} />
+              <Text style={styles.modalTitle}>Add Money</Text>
+              <TouchableOpacity onPress={() => setShowAddMoneyModal(false)}>
+                <Ionicons name="close" size={28} color="#333" />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.modalBody}>
+              <Text style={styles.inputLabel}>Enter Amount (₹)</Text>
+              <TextInput
+                style={styles.amountInput}
+                placeholder="10000"
+                keyboardType="numeric"
+                value={addMoneyAmount}
+                onChangeText={setAddMoneyAmount}
+                editable={!addMoneyLoading}
+              />
+
+              <View style={styles.quickAddButtons}>
+                {[5000, 10000, 25000, 50000].map((amt) => (
+                  <TouchableOpacity
+                    key={amt}
+                    style={styles.quickAddButton}
+                    onPress={() => setAddMoneyAmount(amt.toString())}
+                  >
+                    <Text style={styles.quickAddButtonText}>₹{amt / 1000}K</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <TouchableOpacity
+                style={[styles.confirmButton, addMoneyLoading && styles.buttonDisabled]}
+                onPress={handleAddMoney}
+                disabled={addMoneyLoading}
+              >
+                <Text style={styles.confirmButtonText}>
+                  {addMoneyLoading ? 'Processing...' : 'Add Money'}
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-
-        {currentData.items.map((item, index) => (
-          <View key={index} style={styles.panelRow}>
-            <Ionicons
-              name={item.status === 'good' ? "checkmark-circle" : "close-circle"}
-              size={24}
-              color={item.status === 'good' ? "#28a745" : "#FF3B30"}
-            />
-            <View style={{ flex: 1, marginLeft: 12 }}>
-              <Text style={styles.panelText}>{item.text}</Text>
-            </View>
-            <Image
-              source={{ uri: `https://picsum.photos/id/${100 + index}/80/60` }}
-              style={styles.smallImage}
-            />
-          </View>
-        ))}
-      </View>
-
-      {/* Low Balance Banner */}
-      {isBalanceLow && (
-        <View style={styles.lowBalanceBanner}>
-          <Ionicons name="car-outline" size={28} color="#fff" />
-          <View style={{ marginLeft: 12, flex: 1 }}>
-            <Text style={styles.bannerTitle}>Low Account Balance</Text>
-            <Text style={styles.bannerText}>
-              Account balance is below Min. Balance Rs. 10000. Booking limit exceeded. Deposit Rs. 10000 to continue bidding.
-            </Text>
-          </View>
-        </View>
-      )}
-
-      {/* Timer & Buttons */}
-      <View style={styles.bottomSection}>
-        <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[styles.placeBidButton, isBalanceLow && styles.disabledButton]}
-            onPress={placeBid}
-            disabled={isBalanceLow}
-          >
-            <Text style={styles.placeBidText}>Place Bid</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.autoBidButton} onPress={startAutoBid}>
-            <Text style={styles.autoBidText}>Start Auto Bid</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      </Modal>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8f9fa' },
-
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1048,11 +2169,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 6,
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
+  dot: { width: 8, height: 8, borderRadius: 4 },
 
   inspectionHeader: { padding: 16, backgroundColor: '#fff' },
   inspectionTitle: { fontSize: 18, fontWeight: 'bold' },
@@ -1082,7 +2199,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 20,
   },
   sectionTitle: { fontSize: 18, fontWeight: 'bold' },
   starsContainer: { flexDirection: 'row', alignItems: 'center' },
@@ -1091,25 +2208,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#28a745',
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 6
+    borderRadius: 6,
   },
   ratingBoxText: { color: '#fff', fontWeight: 'bold' },
 
   panelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16
+    marginBottom: 16,
   },
   panelText: {
     flex: 1,
     marginLeft: 12,
     fontSize: 15,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   smallImage: {
     width: 70,
     height: 50,
-    borderRadius: 6
+    borderRadius: 6,
   },
 
   lowBalanceBanner: {
@@ -1128,18 +2245,18 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
     borderTopWidth: 1,
-    borderTopColor: '#eee'
+    borderTopColor: '#eee',
   },
   timerText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#E30613',
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   placeBidButton: {
     flex: 1,
@@ -1149,8 +2266,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 8,
   },
-  disabledButton: { backgroundColor: '#999' },
-  placeBidText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  disabledButton: { opacity: 0.6 },
+  placeBidText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
 
   autoBidButton: {
     flex: 1,
@@ -1162,6 +2279,61 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   autoBidText: { color: '#E30613', fontSize: 16, fontWeight: 'bold' },
+
+  // Modal Styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingBottom: 30,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 18,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  modalTitle: { fontSize: 19, fontWeight: 'bold' },
+  modalBody: { padding: 20 },
+  inputLabel: { fontSize: 15, fontWeight: '600', marginBottom: 10 },
+  amountInput: {
+    borderWidth: 1.5,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    padding: 16,
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  quickAddButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 25,
+  },
+  quickAddButton: {
+    flex: 1,
+    marginHorizontal: 4,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: '#E30613',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  quickAddButtonText: { color: '#E30613', fontWeight: '600' },
+  confirmButton: {
+    backgroundColor: '#E30613',
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  confirmButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  buttonDisabled: { opacity: 0.6 },
 });
 
 export default CarDetailScreen;
